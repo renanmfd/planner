@@ -1,0 +1,81 @@
+@modalHeaderHeight: 50px;
+@modalHeaderHPadding: 30px;
+@modalHeaderVPadding: 10px;
+@modalBodyPadding: 20px;
+
+#modal {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
+
+    #modalBg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        opacity: 0.7;
+        z-index: 1;
+    }
+
+    #modalBox {
+        position: relative;
+        min-width: 200px;
+        max-width: 80%;
+        min-height: 100px;
+        margin: 0 auto;
+        background-color: black;
+        color: white;
+        z-index: 50;
+    }
+
+    #modalHeader {
+        position: relative;
+
+        .title {
+            display: block;
+            width: 100%;
+            padding: @modalHeaderVPadding @modalHeaderHPadding;
+            padding-right: @modalHeaderHeight + @modalHeaderVPadding;
+            margin: 0;
+            line-height: @modalHeaderHeight - (2 * @modalHeaderVPadding);
+            color: white;
+        }
+
+        a {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: @modalHeaderHeight;
+            height: @modalHeaderHeight;
+            padding-left: 5px @modalHeaderHPadding;
+            margin: 0;
+            line-height: @modalHeaderHeight - (2 * @modalHeaderVPadding);
+            text-align: center;
+        }
+
+        .icon {
+            font-size: 20px;
+        }
+    }
+
+    #modalBody {
+        color: white;
+        padding: @modalBodyPadding;
+
+        label {
+            color: white;
+        }
+
+        input {
+            color: black;
+        }
+    }
+}

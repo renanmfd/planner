@@ -1,0 +1,81 @@
+// main: styles.less
+
+#sidebar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: @sidebarCollapsedWidth;
+    width: 100%;
+    background-color: @sidebarBgColor;
+    transition: left ease-in-out @time;
+    overflow: hidden;
+    z-index: 10;
+
+    @media screen and (min-width: @screen-xs-max) {
+        height: 100%;
+        width: @sidebarWidth;
+        right: initial;
+
+        &.collapsed {
+            left: -(@sidebarWidth - @sidebarCollapsedWidth);
+
+            a:hover {
+                outline: thin solid rgba(43, 69, 212, 0.58);
+            }
+        }
+    }
+
+    > .row {
+        padding: 0;
+    }
+
+    ul.menu {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        font-size: 0;
+
+        li {
+            display: inline-block;
+            vertical-align: top;
+            font-size: normal;
+        }
+    }
+
+    .menu-title {
+        display: block;
+        font-size: 0;
+        padding: 10px 0;
+
+        span {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0;
+            color: @sidebarMenuColor;
+        }
+
+        .title {
+            display: none;
+            width: @sidebarWidth - @sidebarCollapsedWidth;
+            text-align: right;
+            font-size: @fontLarge;
+            line-height: 30px;
+        }
+
+        .icon {
+            width: @sidebarCollapsedWidth;
+            text-align: center;
+            font-size: @fontLarge;
+            line-height: 30px;
+        }
+
+        &:focus {
+            border: none;
+        }
+    }
+
+    .menu-body {
+
+    }
+}

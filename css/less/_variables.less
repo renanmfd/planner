@@ -1,0 +1,109 @@
+// main: styles.less
+
+// Medias.
+// Extra small screen / phone
+@screen-xs-min:                  480px;
+// Small screen / tablet
+@screen-sm-min:                  768px;
+// Medium screen / desktop
+@screen-md-min:                  992px;
+// Large screen / wide desktop
+@screen-lg-min:                  1200px;
+
+// So media queries don't overlap when required, provide a maximum
+@screen-xs-max:              (@screen-sm-min - 1);
+@screen-sm-max:              (@screen-md-min - 1);
+@screen-md-max:              (@screen-lg-min - 1);
+
+// Base colors.
+@black: #000;
+@coal: #3b3b3b;
+
+@xlGray: #f0f0f0;
+@lGray: #dedede;
+@gray: #bcbcbc;
+@dGray: #909090;
+@xdGray: #606060;
+
+@white: #fff;
+@ice: #f0ffff;
+
+@sGreen: #d5fce1;
+@xlGreen: #95ffb6;
+@lGreen: #38fc74;
+@green: #1ce359;
+@dGreen: #12ba45;
+@xdGreen: #0b832f;
+@hGreen: #05531d;
+
+@sRed: #fccfcf;
+@xlRed: #ffa9a9;
+@lRed: #ff6363;
+@red: #ff0000;
+@dRed: #b90000;
+@xdRed: #800000;
+@hRed: #400000;
+
+@sYellow: #fffacf;
+@xlYellow: #fff394;
+@lYellow: #ffeb4d;
+@yellow: #ffe200;
+@dYellow: #ddc400;
+@xdYellow: #af9b00;
+@hYellow: #8d7d00;
+
+@sBlue: #cdcbff;
+@xlBlue: #7f7bff;
+@lBlue: #3d36ff;
+@blue: #2019d8;
+@dBlue: #100ab2;
+@xdBlue: #0d0984;
+@hBlue: #060450;
+
+/**
+ * TRANSITIONS
+**/
+@time: 0.6s;
+
+/**
+ * FONTS
+**/
+@fontSmall: 12px;
+@fontNormal: 14px;
+@fontBig: 16px;
+@fontLarge: 20px;
+@fontXLarge: 32px;
+
+@font1: 'Open Sans', sans-serif;
+@font2: 'Slabo 27px', serif;
+
+// Especific colors.
+@headerBgColor: @black;
+@incomeBg: @lGreen;
+@incomeColor: @xdGreen;
+@outcomeBg: @lRed;
+@outcomeColor: @xdRed;
+
+/**
+ * SIDEBAR
+**/
+@sidebarBgColor: @hBlue;
+@sidebarMenuColor: @sBlue;
+@sidebarWidth: 220px;
+@sidebarCollapsedWidth: 50px;
+
+/**
+ * BOX
+**/
+@boxMinWidth: 160px;
+
+/**
+ * DATE WIDGET
+**/
+@dateBr: @xdBlue;
+@dateBg: @sBlue;
+@dateButtonBg: @dBlue;
+@dateButtonCl: @sBlue;
+@dateButtonBgHover: @xdBlue;
+@dateCl: @hBlue;
+@dateHeight: 50px;

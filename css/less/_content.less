@@ -1,0 +1,87 @@
+// main: styles.less
+
+#content {
+    position: relative;
+    min-height: 400px;
+
+    .wrapper {
+        height: 100%;
+    }
+}
+
+#tabContent {
+    display: block;
+    width: 100%;
+    padding-right: @sidebarCollapsedWidth;
+}
+
+#tabController {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: @sidebarCollapsedWidth;
+    background-color: @sidebarBgColor;
+
+    ul.tab-menu {
+        margin: 0;
+        margin-top: 20px;
+    }
+
+    li {
+        width: 100%;
+        height: 100%;
+        margin-bottom: 20px;
+
+        a {
+            position: relative;
+            width: @sidebarCollapsedWidth - 20px;
+            height: @sidebarCollapsedWidth - 20px;
+            padding: 10px;
+            margin: 0 10px;
+            text-align: right;
+            background-color: @sidebarBgColor;
+            overflow: hidden;
+
+            &:hover {
+                .icon {
+                    font-size: @fontNormal;
+                }
+                .text {
+                    opacity: 1;
+                }
+            }
+        }
+
+        &.active a {
+            outline: thin solid rgba(43, 69, 212, 0.58);
+            pointer-events: none;
+
+            .icon {
+                font-size: @fontNormal;
+            }
+            .text {
+                opacity: 1;
+            }
+        }
+
+        .icon {
+            display: block;
+            font-size: @fontLarge;
+            text-align: center;
+            transition: font-size ease-in-out @time;
+        }
+
+        .text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: @fontNormal;
+            opacity: 0;
+            transition: opacity ease-in-out @time;
+            overflow: hidden;
+        }
+    }
+}

@@ -1,0 +1,257 @@
+// main: styles.less
+
+* {
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    padding-top: @sidebarCollapsedWidth;
+
+    @media screen and (min-width: @screen-xs-max) {
+        padding-left: @sidebarCollapsedWidth;
+    }
+}
+
+/** BOX **/
+
+.box {
+    min-width: @boxMinWidth;
+    width: 100%;
+    height: auto;
+    margin: 10px 0;
+    background-color: @white;
+    color: @black;
+
+    &.collapsed {
+        .box-header{
+            .glyphicon-menu-up {
+                opacity: 0;
+            }
+            .glyphicon-menu-down {
+                opacity: 1;
+            }
+
+        }
+    }
+
+    .box-header {
+        position: relative;
+        background-color: @ice;
+
+        .glyphicon {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            line-height: 22px;
+            transition: opacity ease-in-out .4s;
+        }
+
+        .glyphicon-menu-down {
+            opacity: 0;
+        }
+
+        a {
+            display: block;
+            padding: 10px;
+            text-decoration: none !important;
+        }
+    }
+
+    .box-title {
+        margin: 0;
+        text-align: center;
+        font-size: @fontLarge;
+    }
+
+    .box-body {
+        padding: 10px 0;
+        font-size: @fontNormal;
+    }
+
+    .box-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .box-item {
+        position: relative;
+        padding: 3px 10px;
+        margin-bottom: 5px;
+
+        &.total {
+            background-color: @xlGray;
+        }
+
+        .wrapper {
+            font-size: 0;
+            width: 100%;
+            padding-left: 30px;
+        }
+
+        .label, .value {
+            display: inline-block;
+            vertical-align: top;
+            width: 50%;
+            font-size: @fontNormal;
+            line-height: 20px;
+            color: @black;
+            margin: 0;
+            padding: 0;
+        }
+
+        .label {
+            text-align: left;
+        }
+
+        .value {
+            text-align: right;
+        }
+
+        .glyphicon {
+            position: absolute;
+            left: 0;
+            top: 3px;
+            width: 30px;
+            height: 30px;
+            padding-left: 10px;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+/** DATE WIDGET **/
+
+#dateWidget {
+    position: relative;
+    height: @dateHeight;
+    margin-bottom: 10px;
+
+    form {
+        font-size: 0;
+    }
+
+    form > div {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .date-button-wrapper {
+        width: 25%;
+        font-size: normal;
+
+        &:first-of-type button {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        &:last-of-type button {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+    }
+
+    .date-value-wrapper {
+        width: 50%;
+
+        .form-group {
+            display: inline-block;
+            vertical-align: top;
+            width: 50%;
+            font-size: normal;
+        }
+    }
+
+    .date-button {
+        display: block;
+        width: 100%;
+        min-width: 100%;
+        background-color: @dateButtonBg;
+        border: thin solid @dateBr;
+        border-radius: 0;
+        font-size: @fontXLarge;
+        color: @dateButtonCl;
+
+        &:hover {
+            background-color: @dateButtonBgHover;
+        }
+    }
+
+    input,
+    select,
+    button {
+        height: @dateHeight;
+        padding: 5px;
+        border-radius: 0;
+        border: none;
+        border-top: thin solid @dateBr;
+        border-bottom: thin solid @dateBr;
+        background-color: @dateBg;
+        font-size: @fontBig;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+        color: @dateCl;
+        box-shadow: none;
+    }
+
+    .row {
+        overflow: hidden;
+    }
+}
+
+.glyphicon {
+    &.glyphicon-plus-sign {
+        color: @incomeColor;
+        font-size: @fontLarge;
+    }
+
+    &.glyphicon-minus-sign {
+        color: @outcomeColor;
+        font-size: @fontLarge;
+    }
+}
+
+/** THROBBER **/
+
+#throbber {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: @white;
+    opacity: 0.5;
+    transition: all ease-in-out 0.3s;
+    z-index: 1100;
+
+    &:before {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0 auto;
+        font-size: 50px;
+        color: @blue;
+        animation-duration: 1.5s;
+        animation-name: spinner;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+}
+
+@keyframes spinner {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
