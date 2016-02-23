@@ -143,6 +143,9 @@
         // Datepicker.
         $('#addIncomeDate, #addOutcomeDate').datepicker();
 
+        // Tabs.
+        $('#tabs').tabs();
+
         // Click events.
         clickEvents.forEach(function (element, index) {
             $(element.selector).on('click', element.handler);

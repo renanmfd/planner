@@ -1,3 +1,3 @@
-<div class="column row">
+<div class="container">
     Footer
 </div>

@@ -192,22 +192,22 @@ function preprocess_content() {
     $vars = get_vars();
     $vars['#template'] = 'templates/content.tpl.php';
 
-    $file = new File('templates/content/sidebar-tab-controller.tpl.php');
-    $vars['sidebar'] = $file->template(array());
-
     $tabs = array(
         array(
             'index' => 1,
+            'label' => 'Month List',
             'id' => 'tabMonthList',
             'content' => 'content_month_list',
         ),
         array(
             'index' => 2,
+            'label' => 'Tab 2',
             'id' => 'tabBlah',
             'content' => 'content_month_list',
         ),
         array(
             'index' => 3,
+            'label' => 'Tabblets 3',
             'id' => 'tabLebleh',
             'content' => 'content_month_list',
         )
@@ -226,7 +226,9 @@ function preprocess_content() {
         }
 
         $file = new File($tab_vars['#template']);
-        $vars['tabs'][$index] = $file->template($tab_vars);
+        $vars['tabs'][$index] = array();
+        $vars['tabs'][$index]['content'] = $file->template($tab_vars);
+        $vars['tabs'][$index]['label'] = $file->template($tab_vars);
     }
 
     return $vars;
@@ -256,39 +258,6 @@ function content_month_list() {
     $vars['content'] = 'Some content';
     $file = new File($vars['#template']);
     return $file->template($vars);
-}
-
-//========================
-
-
-/*************************
- *
- * THEME FUNCTIONS
- *
- *************************/
-
-function theme_js($vars) {
-    $src = $vars['src'];
-    return "<script src='$src'></script>";
-}
-
-function theme_css($vars) {
-    $href = $vars['href'];
-    return "<link href='$href' rel='stylesheet' type='text/css'/>";
-}
-
-function theme_info($name, $date = false, $label = 'label', $value = 123.45, $currency = 'BRL') {
-    $result =   '<div id="' . c($name) . '" class="info">';
-    $result .=      '<div class="info-label">';
-    $result .= ($date !== false) ? '<span class="date">' . $date . '</span>' . '&nbsp;' : '';
-    $result .=          '<span class="label">' . $label . '</span>';
-    $result .=      '</div>';
-    $result .=      '<div class="info-value">';
-    $result .=          '<span class="value">' . $value . '</span>';
-    $result .=          '<span class="currency">&nbsp;' . $currency . '</span>';
-    $result .=      '</div>';
-    $result .=  '</div>';
-    return $result;
 }
 
 //========================
