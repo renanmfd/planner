@@ -11,11 +11,6 @@ require_once 'php/krumo/Krumo.class.php';
 
 require_once 'php/bootstrap.php';
 
-$config = array(
-    'host' => 'localhost',
-    'username' => 'planner',
-    'password' => 'res2res2',
-    'database' => 'planner'
-);
+$GLOBALS['config'] = get_config();
 
 resolve_request();

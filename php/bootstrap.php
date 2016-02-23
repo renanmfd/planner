@@ -1,5 +1,9 @@
 <?php
 
+define('FOLDERPATH_CONFIG', '');
+define('FOLDERPATH_SCRIPTS', 'js/');
+define('FOLDERPATH_STYLES', 'css/');
+
 function resolve_request() {
     init_session();
 
@@ -79,6 +83,18 @@ function get_css() {
         'modal' => array('href' => 'modal/modal.css'),
         'font' => array('href' => 'https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700|Slabo+27px'),
         'styles' => array('href' => 'css/app.css')
+    );
+}
+
+function get_config() {
+    /*$str = file_get_contents('config.json');
+    $json = json_decode($str, true);
+    return $json;*/
+    $config = array(
+        'host' => 'localhost',
+        'username' => 'planner',
+        'password' => 'res2res2',
+        'database' => 'planner'
     );
 }
 
