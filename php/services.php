@@ -4,13 +4,27 @@ define('TYPE_INCOME', 'income');
 define('TYPE_OUTCOME', 'outcome');
 
 function services_sumary_current_in($params) {
-    $db = _database_get(TYPE_INCOME);
-    return array_slice($db, -3);
+    // Get first day of the month
+    $day = new DateTime('first day of this month');
+    $day_stamp = $day->format('U');
+    
+    $result = array();
+    $result['sumary'] = database_get_entries('income', $day_stamp, time(), 3);
+    $result['total'] = database_get_entries_sum('income', $day_stamp, time());
+    
+    return $result;
 }
 
 function services_sumary_current_out($params) {
-    $db = _database_get(TYPE_OUTCOME);
-    return array_slice($db, -3);
+    // Get first day of the month
+    $day = new DateTime('first day of this month');
+    $day_stamp = $day->format('U');
+    
+    $result = array();
+    $result['sumary'] = database_get_entries('outcome', $day_stamp, time(), 3);
+    $result['total'] = database_get_entries_sum('outcome', $day_stamp, time());
+    
+    return $result;
 }
 
 function services_sumary_lastmonth($params) {
@@ -18,40 +32,50 @@ function services_sumary_lastmonth($params) {
 }
 
 function services_month_list($params) {
-    $db_in = _database_get(TYPE_INCOME);
-    $db_out = _database_get(TYPE_OUTCOME);
-    return array_merge($db_in, $db_out);
+    return array('services', 'sumary', 'month list', $params);
 }
 
 function services_add_income($params) {
+    $config = $GLOBALS['config'];
+    $db = new Database($config['host'], $config['username'], $config['password'], $config['database']);
+    
     $data = array(
-        'name' => $params['name'],
+        'title' => $params['name'],
         'description' => $params['description'],
         'value' => $params['value'],
         'monthly' => ($params['isMonthly'] == 'false') ? 0 : intval($params['monthly']),
-        'date' => ($params['isToday'] == 'false') ? $params['date'] : date('d-m-Y'),
+        'date' => ($params['isToday'] == 'false') ? $params['date'] : time(),
         'user' => 1,
-        'type' => 'income'
+        'type' => 'income',
+        'created' => time()
     );
-    return database_save($data, TYPE_INCOME);
+    
+    $data['id'] = $db->insert('entries', $data);
+    return $data;
 }
 
 function services_add_outcome($params) {
+    $config = $GLOBALS['config'];
+    $db = new Database($config['host'], $config['username'], $config['password'], $config['database']);
+    
     $data = array(
-        'name' => $params['name'],
+        'title' => $params['name'],
         'description' => $params['description'],
         'value' => $params['value'],
         'monthly' => ($params['isMonthly'] == 'false') ? 0 : intval($params['monthly']),
-        'date' => ($params['isToday'] == 'false') ? $params['date'] : date('d-m-Y'),
+        'date' => ($params['isToday'] == 'false') ? $params['date'] : time(),
         'user' => 1,
-        'type' => 'outcome'
+        'type' => 'outcome',
+        'created' => time()
     );
-    return database_save($data, TYPE_OUTCOME);
+    
+    $data['id'] = $db->insert('entries', $data);
+    return $data;
 }
 
 /**
  * HELPERS.
- */
+ *//*
 function database_save($data, $type) {
     // Open file.
     $database = _database_get($type);
@@ -102,4 +126,36 @@ function _database_set($data, $type = TYPE_OUTCOME) {
 
     $filename = 'database/database_' . $type . '.json';
     return file_put_contents($filename, json_encode($data)) ? $data : false;
+}*/
+
+function database_get_entries($type, $time_start, $time_end, $limit = 20, $offset = 0) {
+    $config = $GLOBALS['config'];
+    $db = new Database($config['host'], $config['username'], $config['password'], $config['database']);
+
+    $query = $db
+        ->select('*')
+        ->from('entries');
+    if ($type == 'income' or $type == 'outcome') {
+        $query = $query->where('type', $type);
+    }
+    $results = $query
+        ->where('date >', $time_start)
+        ->where('date <', $time_end)
+        ->limit($limit, $offset)
+        ->fetch();
+    return $results;
+}
+
+function database_get_entries_sum($type, $time_start, $time_end) {
+    $config = $GLOBALS['config'];
+    $db = new Database($config['host'], $config['username'], $config['password'], $config['database']);
+
+    $results = $db
+        ->select_sum('value')
+        ->from('entries')
+        ->where('type', $type)
+        ->where('date >', $time_start)
+        ->where('date <', $time_end)
+        ->fetch();
+    return array_shift($results);
 }

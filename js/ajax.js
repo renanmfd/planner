@@ -55,7 +55,7 @@
                         action: 'add_outcome'
                     },
                     success: function (data) {
-                        console.log('ADD INCOME', 'ajax success', data);
+                        console.log('ADD OUTCOME', 'ajax success', data);
                         setTimeout(function () {
                             $('form', '#modal').find('input[type=text], input[type=number]').val('');
                             Modal.close();
@@ -93,7 +93,7 @@
             /** HEADER box 1 **/
             sumary_lastmonth: {
                 success: function (data) {
-                    console.log('success!!!!');
+                    console.log('success!!!!', this);
                 },
                 error: function (ajax) {
                     console.log('ERROR');
@@ -102,7 +102,14 @@
             /** HEADER box 2 **/
             sumary_current_in: {
                 success: function (data) {
-                    console.log('success!!!!');
+                    var that = this;
+                    console.log('success!!!!', this);
+                    data.sumary.forEach(function (data, index) {
+                        var $element = $('[data-type=data_' + index + ']', that);
+                        $element.find('.value').text(format_money(data.value));
+                        $element.find('.label').text(data.title);
+                    });
+                    $('[data-type=data_total]', that).find('.value').text(format_money(data.total.value));
                 },
                 error: function (ajax) {
                     console.log('ERROR');
@@ -111,7 +118,17 @@
             /** HEADER box 3 **/
             sumary_current_out: {
                 success: function (data) {
-                    console.log('success!!!!');
+                    var that = this;
+                    console.log('success!!!!', this);
+                    data.sumary.forEach(function (data, index) {
+                        var $element = $('[data-type=data_' + index + ']', that);
+                        $element.find('.value').text(format_money(data.value));
+                        $element.find('.label').text(data.title);
+                    });
+                    $('[data-type=data_total]', that).find('.value').text(format_money(data.total.value));
+                    $(that).find('.box-item .glyphicon')
+                        .removeClass('glyphicon-plus-sign')
+                        .addClass('glyphicon-minus-sign');
                 },
                 error: function (ajax) {
                     console.log('ERROR');
@@ -157,7 +174,8 @@
         /** Test **/
         $('[data-ajax]').each(function () {
             var method = $(this).data('ajax'),
-                params = {};
+                params = {},
+                that = this;
             console.log('method', method);
 
             $(this).each(function () {
@@ -176,16 +194,39 @@
                     action: method,
                     params: params
                 },
+                beforeSend: function () {
+                    addThrobber(that);
+                },
                 success: function (data) {
                     console.log('AJAX success:', method, data);
-                    handlers[method].success(data);
+                    handlers[method].success.call(that, data.data);
+                    removeThrobber(that);
                 },
                 error: function (ajax) {
                     console.log('AJAX error:', ajax);
-                    handlers[method].error(ajax);
+                    handlers[method].error.call(that, ajax);
+                    removeThrobber(that);
                 }
             });
         });
     });
+    
+    window.format_money = function (value, currency) {
+        
+        return currency + ' ' + intpart + ',' + decpart;
+    }
+    
+    window.addThrobber = function (element) {
+        var template = '<div class="throbber"><span class="glyphicon glyphicon-hourglass"></span></div>',
+            $template = $(template).hide();
+        $(element).css('position', 'relative');
+        $($template).appendTo(element).fadeIn();
+    }
+    
+    window.removeThrobber = function (element) {
+        $(element).find('.throbber').fadeOut(function () {
+            $(this).remove();
+        });
+    }
 
 }(window, document, jQuery));

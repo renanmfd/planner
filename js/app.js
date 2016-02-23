@@ -18,7 +18,7 @@
                     var $body = $(this).parent().find('.menu-body'),
                         $form = $body.find('form').detach();
                     event.preventDefault();
-                    Modal.setTitle('Test').setBody($form).open(function () {
+                    Modal.setTitle('Add Income').setBody($form).open(function () {
                         $form.detach().appendTo($body);
                     });
                 }
@@ -29,7 +29,7 @@
                     var $body = $(this).parent().find('.menu-body'),
                         $form = $body.find('form').detach();
                     event.preventDefault();
-                    Modal.setTitle('Test').setBody($form).open(function () {
+                    Modal.setTitle('Add Outcome').setBody($form).open(function () {
                         $form.detach().appendTo($body);
                     });
                 }

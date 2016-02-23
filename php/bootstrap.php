@@ -16,7 +16,10 @@ function resolve_request() {
                 if (function_exists($action)) {
                     $result->data = call_user_func($action, $params);
                 } else {
-                    $result->data = $action;
+                    $result->data = array(
+                        'action' => $action,
+                        'error' => 'function `services_' . $action . '` not found.'
+                    );
                 }
             } catch (Exception $e) {
                 $result->error = true;
@@ -155,9 +158,9 @@ function preprocess_header() {
     $vars['#template'] = 'templates/header.tpl.php';
 
     $vars['boxes'] = array();
-    $vars['boxes']['box_lastmonth'] = Theme::box('sumary_lastmonth', 'Test 1', empty_box_list());
-    $vars['boxes']['box_current_in'] = Theme::box('sumary_current_in', 'Test 2', empty_box_list());
-    $vars['boxes']['box_current_out'] = Theme::box('sumary_current_out', 'Test 3', empty_box_list());
+    $vars['boxes']['box_lastmonth'] = Theme::box('sumary_lastmonth', 'Last Month', empty_box_list());
+    $vars['boxes']['box_current_in'] = Theme::box('sumary_current_in', 'Incomes', empty_box_list());
+    $vars['boxes']['box_current_out'] = Theme::box('sumary_current_out', 'Outcomes', empty_box_list());
 
     $vars['date_widget'] = Theme::date_widget();
 
@@ -310,7 +313,7 @@ function t_month($number, $short = false) {
 
 function empty_box_list($name = 'data') {
     $list = array();
-    for ($i = 0; $i < 3; $i += 1) {
+    for ($i = 2; $i >= 0; $i -= 1) {
         $list[] = array(
             'name' => $name . '_' . $i,
             'label' => 'Label label',

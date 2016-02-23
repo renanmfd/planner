@@ -5,7 +5,7 @@
         <div class="modal-wrapper">
             <div id="modalHeader">
                 <h3 class="title">Modal title</h3>
-                <a href="" id="modalClose" alt="Close" class="button">
+                <a href="" id="modalClose" alt="Close" class="btn btn-primary">
                     <span class="icon icon-cross"></span>
                 </a>
             </div>

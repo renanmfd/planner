@@ -9,6 +9,7 @@
  * @copyright Copyright (c) 2015
  * @license   http://opensource.org/licenses/gpl-3.0.html GNU Public License
  * @version   1.5.4
+ * @Docs      https://bitbucket.org/getvivekv/php-mysqli-class/wiki/Home
  **/
 class Database {
 
