@@ -140,6 +140,9 @@
     $(document).ready(function () {
         console.log('app.js is running good...');
 
+        // Datepicker.
+        $('#addIncomeDate, #addOutcomeDate').datepicker();
+
         // Click events.
         clickEvents.forEach(function (element, index) {
             $(element.selector).on('click', element.handler);

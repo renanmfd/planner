@@ -87,14 +87,17 @@ function get_css() {
 }
 
 function get_config() {
-    /*$str = file_get_contents('config.json');
-    $json = json_decode($str, true);
-    return $json;*/
-    $config = array(
-        'host' => 'localhost',
-        'username' => 'planner',
-        'password' => 'res2res2',
-        'database' => 'planner'
+    return array(
+        'host' => 'server1i.tursites.com.br',
+        //'host' => 'localhost',
+        'username' => 'tursites_tursite',
+        //'username' => 'planner',
+        'password' => 'tur.001',
+        //'password' => 'planner',
+        'database' => 'tursites_tursites',
+        //'database' => 'planner',
+        'prefix' => '111_'
+        //'prefix' => ''
     );
 }
 
@@ -332,14 +335,14 @@ function empty_box_list($name = 'data') {
     for ($i = 2; $i >= 0; $i -= 1) {
         $list[] = array(
             'name' => $name . '_' . $i,
-            'label' => 'Label label',
-            'value' => '1.234,56'
+            'label' => '&nbsp',
+            'value' => '0'
         );
     }
     $list[] = array(
         'name' => $name . '_total',
         'label' => 'Total',
-        'value' => '99.888,77',
+        'value' => '0',
         'total' => true
     );
     return $list;

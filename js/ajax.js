@@ -1,5 +1,5 @@
 /*jslint browser: true, devel: true, nomen: true, unparam: true*/
-/*global jQuery, Modal */
+/*global jQuery, Modal, addThrobber, removeThrobber, format_money */
 
 (function (window, document, $) {
     'use strict';
@@ -16,21 +16,23 @@
                     success: function (data) {
                         console.log('ADD INCOME', 'ajax success', data);
                         setTimeout(function () {
-                            $('form', '#modal').find('input[type=text], input[type=number]').val('');
+                            $('form', '#modal')
+                                .find('input[type=text], input[type=number], textfield').val('');
+                            $('form', '#modal')
+                                .find('#addIncomeIsToday, #addOutcomeIsToday').attr('checked', true);
                             Modal.close();
-                        }, 2000);
+                        }, 3000);
                         if (data.debug) {
                             $('#footer').append(data.debug);
                         }
                     },
                     beforeSend: function (ajax, plain) {
-                        $('body')
-                            .append('<div id="throbber" class="icon-spinner3"></div>');
+                        addThrobber('body', true);
                     },
                     complete: function (ajax, status) {
                         setTimeout(function () {
-                            $('#throbber').remove();
-                        }, 2500);
+                            removeThrobber('body');
+                        }, 3000);
                     }
                 },
                 getParams: function ($context) {
@@ -57,21 +59,21 @@
                     success: function (data) {
                         console.log('ADD OUTCOME', 'ajax success', data);
                         setTimeout(function () {
-                            $('form', '#modal').find('input[type=text], input[type=number]').val('');
+                            $('form', '#modal')
+                                .find('input[type=text], input[type=number], textfield').val('');
                             Modal.close();
-                        }, 2000);
+                        }, 3000);
                         if (data.debug) {
                             $('#footer').append(data.debug);
                         }
                     },
                     beforeSend: function (ajax, plain) {
-                        $('body')
-                            .append('<div id="throbber" class="icon-spinner3"></div>');
+                        addThrobber('body', true);
                     },
                     complete: function (ajax, status) {
                         setTimeout(function () {
-                            $('#throbber').remove();
-                        }, 2500);
+                            removeThrobber('body');
+                        }, 3000);
                     }
                 },
                 getParams: function ($context) {
@@ -210,23 +212,45 @@
             });
         });
     });
-    
+
     window.format_money = function (value, currency) {
-        
-        return currency + ' ' + intpart + ',' + decpart;
-    }
-    
-    window.addThrobber = function (element) {
+        var intpart = 0,
+            intpart_array = [],
+            decpart = 0,
+            value_int = Math.trunc(value * 100);
+
+        currency = currency || 'R$';
+        // Decimal
+        decpart = Math.trunc(value_int % 100).toString();
+        while (decpart.length < 2) {
+            decpart = '0' + decpart;
+        }
+
+        // Integer
+        intpart = Math.trunc(value_int / 100).toString();
+        while (intpart.length > 0) {
+            intpart_array.push(intpart.substr(-3, 3));
+            intpart = intpart.substr(0, intpart.length - 3);
+        }
+        intpart_array.reverse();
+        return currency + ' ' + intpart_array.join('.') + ',' + decpart;
+    };
+
+    window.addThrobber = function (element, fixed) {
         var template = '<div class="throbber"><span class="glyphicon glyphicon-hourglass"></span></div>',
             $template = $(template).hide();
+
+        if (fixed) {
+            $template.css('position', 'fixed');
+        }
         $(element).css('position', 'relative');
         $($template).appendTo(element).fadeIn();
-    }
-    
+    };
+
     window.removeThrobber = function (element) {
         $(element).find('.throbber').fadeOut(function () {
             $(this).remove();
         });
-    }
+    };
 
 }(window, document, jQuery));

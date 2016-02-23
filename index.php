@@ -14,3 +14,4 @@ require_once 'php/bootstrap.php';
 $GLOBALS['config'] = get_config();
 
 resolve_request();
+//require_once 'test.php';
