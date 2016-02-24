@@ -48,13 +48,12 @@ function db_preprocess_html() {
         } else {
             $cell->exists = false;
             $result = create_table($database, $name, $table);
-            $result = false;
             if ($result) {
                 $cell->created = true;
                 $cell->message = "Table created successfully!";
             } else {
                 $cell->created = false;
-                $cell->message = "Error: " . mysqli_error($db);
+                $cell->message = "Error: " . mysqli_error($database);
                 $cell->geral = false;
             }
             $cell->entries = '&nbsp;';
@@ -128,6 +127,10 @@ function get_tables() {
                     'not_null' => true
                 ),
                 'email' => array(
+                    'type' => 'VARCHAR(30)',
+                    'not_null' => true
+                ),
+                'password' => array(
                     'type' => 'VARCHAR(30)',
                     'not_null' => true
                 ),

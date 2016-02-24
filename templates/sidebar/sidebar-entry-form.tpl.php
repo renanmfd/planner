@@ -26,7 +26,7 @@
         <div class="row form-group input-preset" style="display: none;">
             <label class="col-xs-12" for="add<?php echo $type; ?>Preset">Presets</label>
             <div class="col-xs-12">
-                <select id="add<?php echo $type; ?>Preset" class="form-control"> 
+                <select id="add<?php echo $type; ?>Preset" class="form-control">
                     <option value="placeholder">Preset</option>
                     <option value="0">Salary</option>
                     <option value="1">Grocery</option>
@@ -39,7 +39,7 @@
         <div class="row form-group input-monthly" style="display: none;">
             <label class="col-xs-12" for="add<?php echo $type; ?>Monthly">Montly until</label>
             <div class="col-xs-12">
-                <input type="text" id="add<?php echo $type; ?>Monthly" placeholder="for X months" 
+                <input type="text" id="add<?php echo $type; ?>Monthly" placeholder="for X months"
                        class="form-control">
             </div>
         </div>
@@ -48,7 +48,8 @@
         <div class="row form-group input-date" style="display: none;">
             <label class="col-xs-12" for="add<?php echo $type; ?>Date">Date</label>
             <div class="col-xs-12">
-                <input type="text" id="add<?php echo $type; ?>Date" class="datepicker form-control">
+                <input type="text" id="add<?php echo $type; ?>Date" class="datepicker form-control"
+                       value="<?php echo date('d/m/Y'); ?>">
             </div>
         </div>
 
@@ -56,7 +57,7 @@
         <div class="row form-group form-input input-name">
             <label class="col-xs-12" for="add<?php echo $type; ?>Name">Name</label>
             <div class="col-xs-12">
-                <input type="text" id="add<?php echo $type; ?>Name" data-validation="itemName" 
+                <input type="text" id="add<?php echo $type; ?>Name" data-validation="itemName"
                        class="form-control">
             </div>
         </div>
@@ -65,7 +66,7 @@
         <div class="row form-group input-description">
             <label class="col-xs-12" for="add<?php echo $type; ?>Description">Description</label>
             <div class="col-xs-12">
-                <textarea id="add<?php echo $type; ?>Description" data-validation="itemDescription" 
+                <textarea id="add<?php echo $type; ?>Description" data-validation="itemDescription"
                           class="form-control"></textarea>
             </div>
         </div>
@@ -74,7 +75,7 @@
         <div class="row required form-group input-value">
             <label class="col-xs-12" for="add<?php echo $type; ?>Value">Value</label>
             <div class="col-xs-12">
-                <input type="text" id="add<?php echo $type; ?>Value" data-validation="money" 
+                <input type="text" id="add<?php echo $type; ?>Value" data-validation="money"
                        class="form-control">
             </div>
         </div>
@@ -88,13 +89,13 @@
                 <div class="row">
                     <div class="col-xs-6">
                         <label>
-                            <input type="checkbox" id="add<?php echo $type; ?>SavePreset" 
+                            <input type="checkbox" id="add<?php echo $type; ?>SavePreset"
                                    value="savePreset">
                             Save
                         </label>
                     </div>
                     <div class="col-xs-6">
-                        <input type="submit" id="add<?php echo $type; ?>Submit" 
+                        <input type="submit" id="add<?php echo $type; ?>Submit"
                                class="btn btn-primary form-submit" value="Submit">
                     </div>
                 </div>

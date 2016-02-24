@@ -15,14 +15,22 @@ function resolve_request() {
         $result = new stdClass();
         if (isset($_POST['action'])) {
             try {
+                // Prepare database variables.
+                $config = $GLOBALS['config'];
+                $GLOBALS['db'] = new Database($config['host'], $config['username'],
+                                              $config['password'], $config['database']);
+
+                // Set service name and parameters.
                 $action = 'services_' . str_replace('-', '_', $_POST['action']);
                 $params = isset($_POST['params']) ? $_POST['params'] : array();
+
+                // Check if service exists and call it.
                 if (function_exists($action)) {
                     $result->data = call_user_func($action, $params);
                 } else {
                     $result->data = array(
                         'action' => $action,
-                        'error' => 'function `services_' . $action . '` not found.'
+                        'error' => 'function `' . $action . '` not found.'
                     );
                 }
             } catch (Exception $e) {
@@ -45,7 +53,9 @@ function resolve_request() {
 }
 
 function init_session() {
-    $_SESSION = array();
+    //$_SESSION = array();
+    session_start();
+    $_SESSION['debug'] = array();
 }
 
 //========================
@@ -196,18 +206,21 @@ function preprocess_content() {
         array(
             'index' => 1,
             'label' => 'Month List',
+            'icon' => 'glyphicon glyphicon-signal',
             'id' => 'tabMonthList',
             'content' => 'content_month_list',
         ),
         array(
             'index' => 2,
             'label' => 'Tab 2',
+            'icon' => 'glyphicon glyphicon-signal',
             'id' => 'tabBlah',
             'content' => 'content_month_list',
         ),
         array(
             'index' => 3,
             'label' => 'Tabblets 3',
+            'icon' => 'glyphicon glyphicon-signal',
             'id' => 'tabLebleh',
             'content' => 'content_month_list',
         )
@@ -228,7 +241,8 @@ function preprocess_content() {
         $file = new File($tab_vars['#template']);
         $vars['tabs'][$index] = array();
         $vars['tabs'][$index]['content'] = $file->template($tab_vars);
-        $vars['tabs'][$index]['label'] = $file->template($tab_vars);
+        $vars['tabs'][$index]['label'] = $tab['label'];
+        $vars['tabs'][$index]['icon'] = $tab['icon'];
     }
 
     return $vars;
@@ -327,9 +341,6 @@ function empty_box_list($name = 'data') {
  *************************/
 
 function debug($data) {
-    if (!isset($_SESSION['debug'])) {
-        $_SESSION['debug'] = array();
-    }
     $_SESSION['debug'][] = $data;
 }
 

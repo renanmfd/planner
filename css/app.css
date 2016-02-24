@@ -254,72 +254,61 @@ body {
 #content .wrapper {
   height: 100%;
 }
-#tabContent {
+#tabs {
   display: block;
   width: 100%;
-  padding-right: 50px;
 }
-#tabController {
+#tabs .tab-list {
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-color: #cdcbff;
+}
+#tabs .tab-link {
+  width: 100%;
+  overflow: hidden;
+}
+#tabs .tab-link a {
+  display: block;
+  padding: 10px;
+  color: #3b3b3b;
+  text-decoration: none !important;
+}
+#tabs .tab-link a:hover {
+  background-color: #7f7bff;
+}
+#tabs .tab-link .glyphicon {
+  margin-right: 10px;
+  color: #ffffff;
+}
+#tabs .tab-label {
+  color: #ffffff;
+  font-weight: bold;
+  overflow: hidden;
+}
+#tabs #tabsHead {
   position: absolute;
   top: 0;
-  right: 0;
-  height: 100%;
-  width: 50px;
-  background-color: #060450;
-}
-#tabController ul.tab-menu {
-  margin: 0;
-  margin-top: 20px;
-}
-#tabController li {
-  width: 100%;
-  height: 100%;
-  margin-bottom: 20px;
-}
-#tabController li a {
-  position: relative;
-  width: 30px;
-  height: 30px;
-  padding: 10px;
-  margin: 0 10px;
-  text-align: right;
-  background-color: #060450;
-  overflow: hidden;
-}
-#tabController li a:hover .icon {
-  font-size: 14px;
-}
-#tabController li a:hover .text {
-  opacity: 1;
-}
-#tabController li.active a {
-  outline: thin solid rgba(43, 69, 212, 0.58);
-  pointer-events: none;
-}
-#tabController li.active a .icon {
-  font-size: 14px;
-}
-#tabController li.active a .text {
-  opacity: 1;
-}
-#tabController li .icon {
-  display: block;
-  font-size: 20px;
-  text-align: center;
-  -webkit-transition: font-size ease-in-out 0.6s;
-          transition: font-size ease-in-out 0.6s;
-}
-#tabController li .text {
-  position: absolute;
-  bottom: 0;
   left: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 14px;
-  opacity: 0;
-  -webkit-transition: opacity ease-in-out 0.6s;
-          transition: opacity ease-in-out 0.6s;
-  overflow: hidden;
+}
+#tabs #tabsHead .tab-label {
+  width: 0;
+}
+#tabs #tabsHead .tab-link {
+  height: 0;
+}
+#tabs #tabsHead .tab-link:first-child {
+  height: auto;
+}
+#tabs #tabsHead.open {
+  color: white;
+}
+#tabs #tabsHead.open .tab-label {
+  width: auto;
+}
+#tabs #tabsHead.open .tab-link {
+  height: auto;
 }
 #sidebar {
   position: fixed;

@@ -35,11 +35,11 @@
                 }
             },
             { // TAB - Control tabs on main container.
-                selector: '#tabController ul li a',
+                selector: '#tabDefault',
                 handler: function (event) {
-                    $('#tabController li.active').removeClass('active');
-                    $(this).parent().addClass('active');
-                    console.log('Tab click', this);
+                    event.preventDefault();
+                    $('#tabsHead').toggleClass('open');
+                    console.log('Tab default click', this);
                 }
             },
             { // DATE WIDGET - Add and subtract date buttons.
@@ -141,10 +141,9 @@
         console.log('app.js is running good...');
 
         // Datepicker.
-        $('#addIncomeDate, #addOutcomeDate').datepicker();
-
-        // Tabs.
-        $('#tabs').tabs();
+        $('#addIncomeDate, #addOutcomeDate').datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
 
         // Click events.
         clickEvents.forEach(function (element, index) {

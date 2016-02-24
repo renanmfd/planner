@@ -9,79 +9,70 @@
     }
 }
 
-#tabContent {
+#tabs {
     display: block;
     width: 100%;
-    padding-right: @sidebarCollapsedWidth;
-}
 
-#tabController {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: @sidebarCollapsedWidth;
-    background-color: @sidebarBgColor;
-
-    ul.tab-menu {
+    .tab-list {
+        display: block;
+        list-style: none;
         margin: 0;
-        margin-top: 20px;
+        padding: 0;
+        background-color: @sBlue;
     }
 
-    li {
+    .tab-link {
         width: 100%;
-        height: 100%;
-        margin-bottom: 20px;
+        overflow: hidden;
 
         a {
-            position: relative;
-            width: @sidebarCollapsedWidth - 20px;
-            height: @sidebarCollapsedWidth - 20px;
+            display: block;
             padding: 10px;
-            margin: 0 10px;
-            text-align: right;
-            background-color: @sidebarBgColor;
-            overflow: hidden;
+            color: @coal;
+            text-decoration: none !important;
 
             &:hover {
-                .icon {
-                    font-size: @fontNormal;
-                }
-                .text {
-                    opacity: 1;
-                }
+                background-color: @xlBlue;
             }
         }
 
-        &.active a {
-            outline: thin solid rgba(43, 69, 212, 0.58);
-            pointer-events: none;
+        .glyphicon {
+            margin-right: 10px;
+            color: @white;
+        }
+    }
 
-            .icon {
-                font-size: @fontNormal;
-            }
-            .text {
-                opacity: 1;
+    .tab-label {
+        color: @white;
+        font-weight: bold;
+        overflow: hidden;
+    }
+
+    #tabsHead {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        .tab-label {
+            width: 0;
+        }
+        .tab-link {
+            height: 0;
+
+            &:first-child {
+                height: auto;
             }
         }
 
-        .icon {
-            display: block;
-            font-size: @fontLarge;
-            text-align: center;
-            transition: font-size ease-in-out @time;
-        }
+        &.open {
+            color: white;
 
-        .text {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-size: @fontNormal;
-            opacity: 0;
-            transition: opacity ease-in-out @time;
-            overflow: hidden;
+            .tab-label {
+                width: auto;
+            }
+            .tab-link {
+                height: auto;
+            }
         }
     }
 }

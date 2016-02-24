@@ -81,8 +81,7 @@ function services_add_income($params) {
 }
 
 function services_add_outcome($params) {
-    $config = $GLOBALS['config'];
-    $db = new Database($config['host'], $config['username'], $config['password'], $config['database']);
+    global $db, $config;
 
     $data = array(
         'title' => $params['name'],
@@ -104,8 +103,7 @@ function services_add_outcome($params) {
  */
 
 function database_get_entries($type, $time_start, $time_end, $limit = 20, $offset = 0) {
-    $config = $GLOBALS['config'];
-    $db = new Database($config['host'], $config['username'], $config['password'], $config['database']);
+    global $db, $config;
 
     $query = $db
         ->select('*')
@@ -123,8 +121,7 @@ function database_get_entries($type, $time_start, $time_end, $limit = 20, $offse
 }
 
 function database_get_entries_sum($type, $time_start, $time_end) {
-    $config = $GLOBALS['config'];
-    $db = new Database($config['host'], $config['username'], $config['password'], $config['database']);
+    global $db, $config;
 
     $results = $db
         ->select_sum('value')
