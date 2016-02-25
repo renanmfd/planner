@@ -1,13 +1,7 @@
-<div class="container">
-    <div id="tabs">
-        <div id="tabsHead">
+<div id="tabs">
+    <div id="tabsHead">
+        <div class="container">
             <ul class="tab-list">
-                <li class="tab-link active">
-                    <a href="#tabEmpty" id="tabDefault">
-                        <span class="glyphicon glyphicon-align-justify"></span>
-                        <span class="tab-label">Choose a <em>view</em></span>
-                    </a>
-                </li>
                 <?php foreach ($tabs as $index => $tab): ?>
                     <li class="tab-link">
                         <a href="#tab<?php echo $index; ?>">
@@ -18,11 +12,13 @@
                 <?php endforeach; ?>
             </ul>
         </div>
-        <div id="tabsBody">
-            <div id="tabEmpty">
+    </div>
+    <div id="tabsBody">
+        <div class="container">
+            <div id="tabEmpty" class="tab-item">
                 <div class="empty">
                     <span class="glyphicon glyphicon-"></span>
-                    <p>Click a <em>view</em> to see where you money is.</p>
+                    <p>Click some <em>view</em> to see where you money is.</p>
                 </div>
             </div>
             <?php foreach ($tabs as $index => $tab): ?>

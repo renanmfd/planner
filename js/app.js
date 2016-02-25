@@ -35,10 +35,12 @@
                 }
             },
             { // TAB - Control tabs on main container.
-                selector: '#tabDefault',
+                selector: '#tabsHead li a',
                 handler: function (event) {
+                    var tab = $(this).attr('href');
                     event.preventDefault();
-                    $('#tabsHead').toggleClass('open');
+                    $('.tab-item', '#tabs').addClass('hidden');
+                    $(tab, '#tabs').removeClass('hidden');
                     console.log('Tab default click', this);
                 }
             },

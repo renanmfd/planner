@@ -36,7 +36,7 @@ class Theme {
     public static function box($service, $title, $list, $attr = array()) {
         $attr['class'][] = 'box collapsed';
         $attr['id'] = $service;
-        $attr['data-ajax'] = $service;
+        $attr['data-ajax-box'] = $service;
         $vars = array(
             'attr' => static::arrayToAttr($attr),
             'title' => $title,

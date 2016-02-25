@@ -55,8 +55,10 @@ function services_month_list($params) {
     $day_stamp = $day->format('U');
 
     $result = array();
-    $result['sumary'] = database_get_entries('outcome', $day_stamp, time(), 9999);
-    $result['total'] = database_get_entries_sum('outcome', $day_stamp, time());
+    $result['result'] = database_get_entries('all', $day_stamp, time(), 9999);
+    $result['total'] = array();
+    $result['total']['in'] = database_get_entries_sum('income', $day_stamp, time());
+    $result['total']['out'] = database_get_entries_sum('outcome', $day_stamp, time());
 
     return $result;
 }
@@ -130,5 +132,5 @@ function database_get_entries_sum($type, $time_start, $time_end) {
         ->where('date >', $time_start)
         ->where('date <', $time_end)
         ->fetch();
-    return array_shift($results);
+    return array_shift($results)['value'];
 }

@@ -14,65 +14,174 @@
     width: 100%;
 
     .tab-list {
-        display: block;
         list-style: none;
         margin: 0;
         padding: 0;
-        background-color: @sBlue;
     }
 
     .tab-link {
-        width: 100%;
-        overflow: hidden;
+        display: table-cell;
+        vertical-align: middle;
 
         a {
             display: block;
             padding: 10px;
             color: @coal;
             text-decoration: none !important;
+            overflow: hidden;
 
             &:hover {
                 background-color: @xlBlue;
             }
         }
 
-        .glyphicon {
-            margin-right: 10px;
+        .glyphicon,
+        .tab-label {
+            display: block;
+            text-align: center;
             color: @white;
         }
-    }
 
-    .tab-label {
-        color: @white;
-        font-weight: bold;
-        overflow: hidden;
+        .tab-label {
+            margin-top: 5px;
+            font-weight: bold;
+        }
     }
 
     #tabsHead {
-        position: absolute;
-        top: 0;
-        left: 0;
+        display: block;
+        width: 100%;
+        font-size: 0;
+        background-color: @sBlue;
 
-        .tab-label {
-            width: 0;
+        .tab-list {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            align-items: stretch;
+            align-content: flex-start;
+            justify-content: space-around;
         }
+
         .tab-link {
-            height: 0;
+            flex: 1 0 33.33%;
+            font-size: @fontNormal;
+        }
+    }
 
-            &:first-child {
-                height: auto;
+    .panel {
+        margin-top: 15px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 0;
+    }
+
+    .entry {
+        position: relative;
+        background-color: @entryBoxBg1;
+
+        &:nth-child(2n) {
+            background-color: @entryBoxBg2;
+        }
+
+        &.income {
+            .date, actions, .value {
+                background-color: @entryBoxIncomeBg1;
+            }
+
+            &:nth-child(2n) {
+                .date, actions, .value {
+                    background-color: @entryBoxIncomeBg2;
+                }
             }
         }
 
-        &.open {
-            color: white;
-
-            .tab-label {
-                width: auto;
+        &.outcome {
+            .date, actions, .value {
+                background-color: @entryBoxOutcomeBg1;
             }
-            .tab-link {
-                height: auto;
+
+            &:nth-child(2n) {
+                .date, actions, .value {
+                    background-color: @entryBoxOutcomeBg2;
+                }
             }
         }
+
+        .date {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: @entryBoxSize;
+            height: @entryBoxSize;
+            float: none;
+            padding: 0;
+            font-size: @fontLarge;
+            font-weight: bold;
+            text-align: center;
+            line-height: @entryBoxSize;
+            background-color: @gray;
+            color: @white;
+        }
+
+        .actions {
+            display: none;
+            position: absolute;
+            top: @entryBoxSize;
+            right: 0;
+            width: 2 * @entryBoxSize;
+            height: @entryBoxSize;
+            float: none;
+            padding: 0;
+            font-size: 0;
+
+            .action {
+                display: inline-block;
+                vertical-align: top;
+                width: 50%;
+                height: @entryBoxSize;
+                padding: 0;
+                font-size: @fontLarge;
+                text-align: center;
+                line-height: @entryBoxSize;
+                background-color: @gray;
+
+                &:first-child {
+                    border-right: thin solid @lGray;
+                }
+            }
+        }
+
+        .title {
+            height: @entryBoxSize;
+            padding-left: @entryBoxSize + 15px;
+            padding-right: @entryValueWidth + 15px;
+            font-size: @fontNormal;
+            font-weight: normal;
+            line-height: @entryBoxSize;
+        }
+
+        .value {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: @entryValueWidth;
+            height: @entryBoxSize;
+            padding: 0 10px;
+            float: none;
+            font-size: @fontNormal;
+            font-weight: bold;
+            text-align: right;
+            line-height: @entryBoxSize;
+            background-color: @gray;
+            color: @white;
+        }
+
+        .desc {
+            display: none;
+        }
+
     }
 }

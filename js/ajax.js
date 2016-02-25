@@ -1,5 +1,5 @@
 /*jslint browser: true, devel: true, nomen: true, unparam: true*/
-/*global jQuery, Modal, addThrobber, removeThrobber, format_money */
+/*global jQuery, Modal, addThrobber, removeThrobber, format_money, format_date, leading_zero */
 
 (function (window, document, $) {
     'use strict';
@@ -95,7 +95,13 @@
             /** HEADER box 1 **/
             sumary_lastmonth: {
                 success: function (data) {
-                    console.log('success!!!!', this);
+                    var that = this;
+                    data.sumary.forEach(function (data, index) {
+                        var $element = $('[data-type=data_' + index + ']', that);
+                        $element.find('.value').text(format_money(data.value));
+                        $element.find('.label').text(data.title);
+                    });
+                    $('[data-type=data_total]', that).find('.value').text(format_money(data.total.value));
                 },
                 error: function (ajax) {
                     console.log('ERROR');
@@ -105,7 +111,6 @@
             sumary_current_in: {
                 success: function (data) {
                     var that = this;
-                    console.log('success!!!!', this);
                     data.sumary.forEach(function (data, index) {
                         var $element = $('[data-type=data_' + index + ']', that);
                         $element.find('.value').text(format_money(data.value));
@@ -121,7 +126,6 @@
             sumary_current_out: {
                 success: function (data) {
                     var that = this;
-                    console.log('success!!!!', this);
                     data.sumary.forEach(function (data, index) {
                         var $element = $('[data-type=data_' + index + ']', that);
                         $element.find('.value').text(format_money(data.value));
@@ -135,8 +139,123 @@
                 error: function (ajax) {
                     console.log('ERROR');
                 }
+            },
+            /** CONTENT tab 1 **/
+            month_list: {
+                success: function (data) {
+                    var that = this;
+                    data.result.forEach(function (entry, index) {
+                        var $clone = $('#template', that).clone().removeAttr('id');
+                        $clone.addClass(entry.type);
+                        $clone.find('.date').text(format_date(entry.date));
+                        $clone.find('.title').text(entry.title);
+                        $clone.find('.desc').text(entry.description);
+                        $clone.find('.value').text(format_money(entry.value));
+                        $clone.find('.actions').data('id', entry.id);
+
+                        $('.panel-body', that).append($clone);
+                    });
+                    $('#template', that).hide();
+                },
+                error: function (ajax) {
+                    console.log('ERROR');
+                }
             }
         };
+
+    /**
+     * Update BOX content with an ajax call.
+     * @param {String} name Name of the container to update. If not set, all will be updated.
+     */
+    function ajaxUpdateBox(name) {
+        var selector = name ? '[data-ajax-box="' + name + '"]' : '[data-ajax-box]';
+
+        /** Test **/
+        $(selector).each(function () {
+            var method = $(this).data('ajax-box'),
+                params = {},
+                that = this;
+            console.log('method', method);
+
+            $(this).each(function () {
+                $.each(this.attributes, function () {
+                    if (this.specified) {
+                        params[this.name] = this.value;
+                    }
+                });
+            });
+            //console.log('data-ajax', this, method, params);
+
+            $.ajax('', {
+                method: 'POST',
+                data: {
+                    services: true,
+                    action: method,
+                    params: params
+                },
+                beforeSend: function () {
+                    addThrobber(that);
+                },
+                success: function (data) {
+                    console.log('AJAX success:', method, data);
+                    handlers[method].success.call(that, data.data);
+                    removeThrobber(that);
+                },
+                error: function (ajax) {
+                    console.log('AJAX error:', method, ajax);
+                    handlers[method].error.call(that, ajax);
+                    removeThrobber(that);
+                }
+            });
+        });
+    }
+
+    /**
+     * Update TABS content with an ajax call.
+     * @param {String} name Name of the container to update. If not set, all will be updated.
+     */
+    function ajaxUpdateTab(name) {
+        var selector = name ? '[data-ajax-tab="' + name + '"]' : '[data-ajax-tab]';
+
+        /** Test **/
+        $(selector).each(function () {
+            var method = $(this).data('ajax-tab'),
+                params = {},
+                that = this;
+            console.log('method', method);
+
+            $(this).each(function () {
+                $.each(this.attributes, function () {
+                    if (this.specified) {
+                        params[this.name] = this.value;
+                    }
+                });
+            });
+            //console.log('data-ajax', this, method, params);
+
+            $.ajax('', {
+                method: 'POST',
+                data: {
+                    services: true,
+                    action: method,
+                    params: params
+                },
+                beforeSend: function () {
+                    addThrobber(that);
+                },
+                success: function (data) {
+                    console.log('AJAX success:', method, data);
+                    handlers[method].success.call(that, data.data);
+                    removeThrobber(that);
+                },
+                error: function (ajax) {
+                    console.log('AJAX error:', method, ajax);
+                    handlers[method].error.call(that, ajax);
+                    removeThrobber(that);
+                }
+            });
+        });
+    }
 
     $(document).ready(function () {
         // Ajax requests.
@@ -173,45 +292,11 @@
             });
         });
 
-        /** Test **/
-        $('[data-ajax]').each(function () {
-            var method = $(this).data('ajax'),
-                params = {},
-                that = this;
-            console.log('method', method);
-
-            $(this).each(function () {
-                $.each(this.attributes, function () {
-                    if (this.specified) {
-                        params[this.name] = this.value;
-                    }
-                });
-            });
-            //console.log('data-ajax', this, method, params);
-
-            $.ajax('', {
-                method: 'POST',
-                data: {
-                    services: true,
-                    action: method,
-                    params: params
-                },
-                beforeSend: function () {
-                    addThrobber(that);
-                },
-                success: function (data) {
-                    console.log('AJAX success:', method, data);
-                    handlers[method].success.call(that, data.data);
-                    removeThrobber(that);
-                },
-                error: function (ajax) {
-                    console.log('AJAX error:', ajax);
-                    handlers[method].error.call(that, ajax);
-                    removeThrobber(that);
-                }
-            });
-        });
+        ajaxUpdateBox();
+        ajaxUpdateTab();
     });
+
+    /** HELPER FUNCTION (global) **/
 
     window.format_money = function (value, currency) {
         var intpart = 0,
@@ -222,9 +307,7 @@
         currency = currency || 'R$';
         // Decimal
         decpart = Math.trunc(value_int % 100).toString();
-        while (decpart.length < 2) {
-            decpart = '0' + decpart;
-        }
+        leading_zero(decpart, 2);
 
         // Integer
         intpart = Math.trunc(value_int / 100).toString();
@@ -233,7 +316,22 @@
             intpart = intpart.substr(0, intpart.length - 3);
         }
         intpart_array.reverse();
+
         return currency + ' ' + intpart_array.join('.') + ',' + decpart;
+    };
+
+    window.format_date = function (timestamp) {
+        var date = new Date(parseInt(timestamp, 10) * 1000);
+        return leading_zero(date.getDate());
+    };
+
+    window.leading_zero = function (value, size) {
+        var aux = value.toString();
+        size = size || 2;
+        while (aux.length < size) {
+            aux = '0' + aux;
+        }
+        return aux;
     };
 
     window.addThrobber = function (element, fixed) {

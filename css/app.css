@@ -15,6 +15,9 @@
 /**
  * DATE WIDGET
 **/
+/**
+ * TAB ENTRY
+**/
 * {
   box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
@@ -259,56 +262,170 @@ body {
   width: 100%;
 }
 #tabs .tab-list {
-  display: block;
   list-style: none;
   margin: 0;
   padding: 0;
-  background-color: #cdcbff;
 }
 #tabs .tab-link {
-  width: 100%;
-  overflow: hidden;
+  display: table-cell;
+  vertical-align: middle;
 }
 #tabs .tab-link a {
   display: block;
   padding: 10px;
   color: #3b3b3b;
   text-decoration: none !important;
+  overflow: hidden;
 }
 #tabs .tab-link a:hover {
   background-color: #7f7bff;
 }
-#tabs .tab-link .glyphicon {
-  margin-right: 10px;
+#tabs .tab-link .glyphicon,
+#tabs .tab-link .tab-label {
+  display: block;
+  text-align: center;
   color: #ffffff;
 }
-#tabs .tab-label {
-  color: #ffffff;
+#tabs .tab-link .tab-label {
+  margin-top: 5px;
   font-weight: bold;
-  overflow: hidden;
 }
 #tabs #tabsHead {
+  display: block;
+  width: 100%;
+  font-size: 0;
+  background-color: #cdcbff;
+}
+#tabs #tabsHead .tab-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-align-content: flex-start;
+      -ms-flex-line-pack: start;
+          align-content: flex-start;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+}
+#tabs #tabsHead .tab-link {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 33.33%;
+      -ms-flex: 1 0 33.33%;
+          flex: 1 0 33.33%;
+  font-size: 14px;
+}
+#tabs .panel {
+  margin-top: 15px;
+}
+#tabs .container {
+  width: 100%;
+  padding: 0;
+}
+#tabs .entry {
+  position: relative;
+  background-color: #fcfcfc;
+}
+#tabs .entry:nth-child(2n) {
+  background-color: #f1fbfc;
+}
+#tabs .entry.income .date,
+#tabs .entry.income actions,
+#tabs .entry.income .value {
+  background-color: #ccfac6;
+}
+#tabs .entry.income:nth-child(2n) .date,
+#tabs .entry.income:nth-child(2n) actions,
+#tabs .entry.income:nth-child(2n) .value {
+  background-color: #b9f4b2;
+}
+#tabs .entry.outcome .date,
+#tabs .entry.outcome actions,
+#tabs .entry.outcome .value {
+  background-color: #f59494;
+}
+#tabs .entry.outcome:nth-child(2n) .date,
+#tabs .entry.outcome:nth-child(2n) actions,
+#tabs .entry.outcome:nth-child(2n) .value {
+  background-color: #fda4a4;
+}
+#tabs .entry .date {
   position: absolute;
   top: 0;
   left: 0;
+  width: 30px;
+  height: 30px;
+  float: none;
+  padding: 0;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 30px;
+  background-color: #bcbcbc;
+  color: #ffffff;
 }
-#tabs #tabsHead .tab-label {
-  width: 0;
+#tabs .entry .actions {
+  display: none;
+  position: absolute;
+  top: 30px;
+  right: 0;
+  width: 60px;
+  height: 30px;
+  float: none;
+  padding: 0;
+  font-size: 0;
 }
-#tabs #tabsHead .tab-link {
-  height: 0;
+#tabs .entry .actions .action {
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+  height: 30px;
+  padding: 0;
+  font-size: 20px;
+  text-align: center;
+  line-height: 30px;
+  background-color: #bcbcbc;
 }
-#tabs #tabsHead .tab-link:first-child {
-  height: auto;
+#tabs .entry .actions .action:first-child {
+  border-right: thin solid #dedede;
 }
-#tabs #tabsHead.open {
-  color: white;
+#tabs .entry .title {
+  height: 30px;
+  padding-left: 45px;
+  padding-right: 115px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 30px;
 }
-#tabs #tabsHead.open .tab-label {
-  width: auto;
+#tabs .entry .value {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 30px;
+  padding: 0 10px;
+  float: none;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right;
+  line-height: 30px;
+  background-color: #bcbcbc;
+  color: #ffffff;
 }
-#tabs #tabsHead.open .tab-link {
-  height: auto;
+#tabs .entry .desc {
+  display: none;
 }
 #sidebar {
   position: fixed;

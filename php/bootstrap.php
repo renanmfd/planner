@@ -223,6 +223,13 @@ function preprocess_content() {
             'icon' => 'glyphicon glyphicon-signal',
             'id' => 'tabLebleh',
             'content' => 'content_month_list',
+        ),
+        array(
+            'index' => 4,
+            'label' => 'Tabblets 4',
+            'icon' => 'glyphicon glyphicon-signal',
+            'id' => 'tabLeblsdfsdeh',
+            'content' => 'content_month_list',
         )
     );
 
@@ -254,7 +261,6 @@ function preprocess_sidebar() {
 
     $file = new File('templates/sidebar/sidebar-entry-form.tpl.php');
     $vars['income_form'] = $file->template(array('type' => 'Income'));
-
     $vars['outcome_form'] = $file->template(array('type' => 'Outcome'));
 
     return $vars;
