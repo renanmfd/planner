@@ -120,7 +120,9 @@ function get_tables() {
                 'id' => array(
                     'type' => 'INT',
                     'auto_increment' => true,
-                    'primary_key' => true
+                    'unique' => true,
+                    'primary_key' => true,
+                    'not_null' => true
                 ),
                 'name' => array(
                     'type' => 'VARCHAR(30)',
@@ -128,10 +130,11 @@ function get_tables() {
                 ),
                 'email' => array(
                     'type' => 'VARCHAR(30)',
+                    'unique' => true,
                     'not_null' => true
                 ),
                 'password' => array(
-                    'type' => 'VARCHAR(30)',
+                    'type' => 'VARCHAR(255)',
                     'not_null' => true
                 ),
                 'created' => array(
@@ -177,6 +180,9 @@ function create_table($db, $name, $data) {
         }
         if (isset($field['primary_key']) and $field['primary_key'] == true) {
             $aux .= ' PRIMARY KEY';
+        }
+        if (isset($field['unique']) and $field['unique'] == true) {
+            $aux .= ' UNIQUE';
         }
         if (isset($field['not_null']) and $field['not_null'] == true) {
             $aux .= ' NOT NULL';

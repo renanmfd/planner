@@ -88,6 +88,28 @@
                         save: $context.find('#addOutcomeSavePreset').is(':checked')
                     };
                 }
+            },
+            {
+                event: 'click',
+                selector: '#menuLogout',
+                ajax: {
+                    data: {
+                        services: true,
+                        action: 'logout'
+                    },
+                    success: function (data) {
+                        console.log('LOGOUT', 'ajax success', data);
+                    },
+                    beforeSend: function (ajax, plain) {
+                        addThrobber('body', true);
+                    },
+                    complete: function (ajax, status) {
+                        removeThrobber('body');
+                    }
+                },
+                getParams: function ($context) {
+                    return {};
+                }
             }
         ],
         /** DATA-AJAX HANDLERS **/

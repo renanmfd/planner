@@ -7,6 +7,8 @@ define('FOLDERPATH_STYLES', 'css/');
 function resolve_request() {
     init_session();
 
+    check_logged();
+
     if (isset($_POST['services'])) {
         include_once 'php/services.php';
 
@@ -56,6 +58,16 @@ function init_session() {
     //$_SESSION = array();
     session_start();
     $_SESSION['debug'] = array();
+}
+
+function check_logged() {
+    if (isset($_SESSION['user']) and $_SESSION['user'] > 0) {
+        return true;
+    }
+    // If user is not logged, go to login/register script.
+    header('location:user.php');
+    exit(0);
+    return false;
 }
 
 //========================
@@ -167,9 +179,6 @@ function preprocess_page() {
     $file = new File($vars_footer['#template']);
     $vars['footer'] = $file->template($vars_footer);
 
-    //debug($vars);
-    //debug($_SERVER);
-
     $vars['debug'] = debug_get();
 
     return $vars;
@@ -192,8 +201,6 @@ function preprocess_header() {
     $vars['boxes']['box_current_out'] = Theme::box('sumary_current_out', 'Outcomes', empty_box_list());
 
     $vars['date_widget'] = Theme::date_widget();
-
-    debug($vars);
 
     return $vars;
 }
@@ -346,16 +353,15 @@ function empty_box_list($name = 'data') {
  *
  *************************/
 
-function debug($data) {
-    $_SESSION['debug'][] = $data;
+function debug($data, $name = null) {
+    $name = $name ? $name : uniqid();
+    $_SESSION['debug'][$name] = $data;
 }
 
 function debug_get() {
     if (isset($_SESSION['debug']) and is_array($_SESSION['debug'])) {
         ob_start();
-        foreach ($_SESSION['debug'] as $item) {
-            krumo($item);
-        }
+        krumo($_SESSION['debug']);
         $content = ob_get_contents();
         ob_end_clean();
         return $content;

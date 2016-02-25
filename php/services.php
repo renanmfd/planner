@@ -100,6 +100,11 @@ function services_add_outcome($params) {
     return $data;
 }
 
+function services_logout($params) {
+    unset($_SESSION['user']);
+    session_destroy();
+}
+
 /**
  * Database Operations.
  */

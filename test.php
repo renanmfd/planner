@@ -16,3 +16,13 @@ print '<hr>';
 print $last_day->format('Y-m-d H:i:s');
 print '<hr>';
 print $last_day_stamp;
+
+print '<hr>';
+
+print_r($_SESSION);
+
+session_destroy();
+
+print '<hr>';
+
+print_r($_SESSION);
