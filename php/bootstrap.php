@@ -6,6 +6,11 @@ define('FOLDERPATH_STYLES', 'css/');
 
 function resolve_request() {
     init_session();
+    
+    // Prepare database variables.
+    $config = $GLOBALS['config'];
+    $GLOBALS['db'] = new Database($config->host, $config->username,
+                                  $config->password, $config->database);
 
     check_logged();
 
@@ -17,11 +22,6 @@ function resolve_request() {
         $result = new stdClass();
         if (isset($_POST['action'])) {
             try {
-                // Prepare database variables.
-                $config = $GLOBALS['config'];
-                $GLOBALS['db'] = new Database($config['host'], $config['username'],
-                                              $config['password'], $config['database']);
-
                 // Set service name and parameters.
                 $action = 'services_' . str_replace('-', '_', $_POST['action']);
                 $params = isset($_POST['params']) ? $_POST['params'] : array();
@@ -62,10 +62,14 @@ function init_session() {
 
 function check_logged() {
     if (isset($_SESSION['user']) and $_SESSION['user'] > 0) {
-        return true;
+        $GLOBALS['user'] = User::load($_SESSION['user']);
+        if ($GLOBALS['user'] !== false) {
+            $_SESSION['group'] = $GLOBALS['user']->getGroup();
+            return true;
+        }
     }
     // If user is not logged, go to login/register script.
-    header('location:user.php');
+    header('Location: user.php');
     exit(0);
     return false;
 }
@@ -109,18 +113,8 @@ function get_css() {
 }
 
 function get_config() {
-    return array(
-        'host' => 'server1i.tursites.com.br',
-        //'host' => 'localhost',
-        'username' => 'tursites_tursite',
-        //'username' => 'planner',
-        'password' => 'tur.001',
-        //'password' => 'planner',
-        'database' => 'tursites_tursites',
-        //'database' => 'planner',
-        'prefix' => '111_'
-        //'prefix' => ''
-    );
+    $json = new File('config.json');
+    return $json->getJSON();
 }
 
 //========================
@@ -137,6 +131,8 @@ function preprocess_html() {
     $vars['#template'] = 'templates/html.tpl.php';
 
     $vars['body_classes'] = 'html';
+    
+    //debug($GLOBALS, 'GLOBALS');
 
     $js_array = get_js();
     foreach ($js_array as $js) {
@@ -359,7 +355,7 @@ function debug($data, $name = null) {
 }
 
 function debug_get() {
-    if (isset($_SESSION['debug']) and is_array($_SESSION['debug'])) {
+    if (isset($_SESSION['debug']) and !empty($_SESSION['debug'])) {
         ob_start();
         krumo($_SESSION['debug']);
         $content = ob_get_contents();

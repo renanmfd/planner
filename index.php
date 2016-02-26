@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 
 require_once 'php/classes/File.class.php';
 require_once 'php/classes/Database.class.php';
+require_once 'php/classes/User.class.php';
 require_once 'php/classes/Theme.class.php';
 require_once 'php/krumo/Krumo.class.php';
 

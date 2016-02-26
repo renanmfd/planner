@@ -64,8 +64,7 @@ function services_month_list($params) {
 }
 
 function services_add_income($params) {
-    $config = $GLOBALS['config'];
-    $db = new Database($config['host'], $config['username'], $config['password'], $config['database']);
+    global $db, $config, $user;
 
     $data = array(
         'title' => $params['name'],
@@ -73,17 +72,17 @@ function services_add_income($params) {
         'value' => $params['value'],
         'monthly' => ($params['isMonthly'] == 'false') ? 0 : intval($params['monthly']),
         'date' => ($params['isToday'] == 'false') ? $params['date'] : time(),
-        'user' => 1,
+        'group_code' => $user->getGroup(),
         'type' => 'income',
         'created' => time()
     );
 
-    $data['id'] = $db->insert($config['prefix'] . 'entries', $data);
+    $data['id'] = $db->insert($config->prefix . 'entries', $data);
     return $data;
 }
 
 function services_add_outcome($params) {
-    global $db, $config;
+    global $db, $config, $user;
 
     $data = array(
         'title' => $params['name'],
@@ -91,12 +90,12 @@ function services_add_outcome($params) {
         'value' => $params['value'],
         'monthly' => ($params['isMonthly'] == 'false') ? 0 : intval($params['monthly']),
         'date' => ($params['isToday'] == 'false') ? $params['date'] : time(),
-        'user' => 1,
+        'group_code' => $user->getGroup(),
         'type' => 'outcome',
         'created' => time()
     );
 
-    $data['id'] = $db->insert($config['prefix'] . 'entries', $data);
+    $data['id'] = $db->insert($config->prefix . 'entries', $data);
     return $data;
 }
 
@@ -110,17 +109,18 @@ function services_logout($params) {
  */
 
 function database_get_entries($type, $time_start, $time_end, $limit = 20, $offset = 0) {
-    global $db, $config;
+    global $db, $config, $user;
 
     $query = $db
         ->select('*')
-        ->from($config['prefix'] . 'entries');
+        ->from($config->prefix . 'entries');
     if ($type == 'income' or $type == 'outcome') {
         $query = $query->where('type', $type);
     }
     $results = $query
         ->where('date >', $time_start)
         ->where('date <', $time_end)
+        ->where('group_code', $user->getGroup())
         ->limit($limit, $offset)
         ->order_by('date', 'desc')
         ->fetch();
@@ -128,14 +128,19 @@ function database_get_entries($type, $time_start, $time_end, $limit = 20, $offse
 }
 
 function database_get_entries_sum($type, $time_start, $time_end) {
-    global $db, $config;
+    global $db, $config, $user;
 
     $results = $db
         ->select_sum('value')
-        ->from($config['prefix'] . 'entries')
+        ->from($config->prefix . 'entries')
         ->where('type', $type)
         ->where('date >', $time_start)
         ->where('date <', $time_end)
+        ->where('group_code', $user->getGroup())
         ->fetch();
+    
+    if (empty($result)) {
+        return 0;
+    }
     return array_shift($results)['value'];
 }

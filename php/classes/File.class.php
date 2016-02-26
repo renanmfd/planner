@@ -85,6 +85,19 @@ class File {
         }
         return "";
     }
+    
+    /**
+     * Get the content of the JSON file.
+     *
+     * @return {Object} Object with file content of JSON file.
+     */
+    public function getJSON() {
+        if ($this->getExtention() == 'json') {
+            $json = $this->getContent();
+            return json_decode($json);
+        }
+        return "";
+    }
 
     /**
      * Get the directory path of the file.

@@ -98,7 +98,7 @@
                         action: 'logout'
                     },
                     success: function (data) {
-                        console.log('LOGOUT', 'ajax success', data);
+                        location.reload();
                     },
                     beforeSend: function (ajax, plain) {
                         addThrobber('body', true);
@@ -123,7 +123,7 @@
                         $element.find('.value').text(format_money(data.value));
                         $element.find('.label').text(data.title);
                     });
-                    $('[data-type=data_total]', that).find('.value').text(format_money(data.total.value));
+                    $('[data-type=data_total]', that).find('.value').text(format_money(data.total));
                 },
                 error: function (ajax) {
                     console.log('ERROR');
@@ -138,7 +138,7 @@
                         $element.find('.value').text(format_money(data.value));
                         $element.find('.label').text(data.title);
                     });
-                    $('[data-type=data_total]', that).find('.value').text(format_money(data.total.value));
+                    $('[data-type=data_total]', that).find('.value').text(format_money(data.total));
                 },
                 error: function (ajax) {
                     console.log('ERROR');
@@ -153,7 +153,7 @@
                         $element.find('.value').text(format_money(data.value));
                         $element.find('.label').text(data.title);
                     });
-                    $('[data-type=data_total]', that).find('.value').text(format_money(data.total.value));
+                    $('[data-type=data_total]', that).find('.value').text(format_money(data.total));
                     $(that).find('.box-item .glyphicon')
                         .removeClass('glyphicon-plus-sign')
                         .addClass('glyphicon-minus-sign');
@@ -324,12 +324,12 @@
         var intpart = 0,
             intpart_array = [],
             decpart = 0,
-            value_int = Math.trunc(value * 100);
+            value_int = Math.trunc(Math.round(value * 100));
 
         currency = currency || 'R$';
         // Decimal
         decpart = Math.trunc(value_int % 100).toString();
-        leading_zero(decpart, 2);
+        decpart = leading_zero(decpart, 2);
 
         // Integer
         intpart = Math.trunc(value_int / 100).toString();

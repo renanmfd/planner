@@ -20,28 +20,11 @@ function resolve_user() {
 
 function executeAction($action) {
     $config = get_config();
-    $db = new Database($config['host'], $config['username'],
-                       $config['password'], $config['database']);
+    $GLOBALS['config'] = $config;
+    $GLOBALS['db'] = new Database($config->host, $config->username,
+                       $config->password, $config->database);
 
     if ($action == 'login') {
-        /*$results = $db
-            ->select('*')
-            ->from($config['prefix'] . 'users')
-            ->where('email', $_POST['email'])
-            ->fetch();
-
-        if (!empty($results)) {
-            $user = array_shift($results);
-
-            if ($user['password'] == crypt($_POST['password'], $user['password'])) {
-                $_SESSION['user'] = $user['id'];
-                redirect('index.php');
-            } else {
-                redirect('user.php', array('e' => 'E02'));
-            }
-        } else {
-            redirect('user.php', array('e' => 'E01'));
-        }*/
         $result = User::login($_POST['email'], $_POST['password']);
         if ($result->user) {
             $_SESSION['user'] = $result->user['id'];
@@ -50,24 +33,22 @@ function executeAction($action) {
             redirect('user.php', array('e' => $result->error));
         }
     } else if ($action == 'register') {
-        $results = $db
-            ->select('*')
-            ->from($config['prefix'] . 'users')
-            ->where('email', $_POST['email'])
-            ->fetch();
+        $user_exists = User::exists($_POST['email']);
 
-        if (empty($results)) {
+        if (!$user_exists) {
             if ($_POST['password'] == $_POST['password_conf']) {
-                $data = array(
-                    'name' => $_POST['name'],
-                    'email' => $_POST['email'],
-                    'password' => crypt($_POST['password']),
-                    'created' => time()
+                $user = new User(
+                    $_POST['name'], $_POST['email'], crypt($_POST['password'])
                 );
-                $id = $db->insert($config['prefix'] . 'users', $data);
-
-                if ($id > 0) {
-                    $_SESSION['user'] = $id;
+                if (isset($_POST['group'])) {
+                    $user->setGroup($_POST['group']);
+                } else {
+                    $user->createGroup();
+                }
+                $user->persist();
+                
+                if ($user->getId() > 0) {
+                    $_SESSION['user'] = $user->getId();
                     redirect('index.php');
                 } else {
                     redirect('user.php', array('e' => 'E13'));
@@ -130,16 +111,6 @@ function error_code($num) {
 }
 
 function get_config() {
-    return array(
-        'host' => 'server1i.tursites.com.br',
-        //'host' => 'localhost',
-        'username' => 'tursites_tursite',
-        //'username' => 'planner',
-        'password' => 'tur.001',
-        //'password' => 'planner',
-        'database' => 'tursites_tursites',
-        //'database' => 'planner',
-        'prefix' => '111_'
-        //'prefix' => ''
-    );
+    $json = new File('config.json');
+    return $json->getJSON();
 }

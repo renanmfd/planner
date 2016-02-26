@@ -20,7 +20,7 @@ function db_preprocess_html() {
 
     // Create connection.
     $config = get_config();
-    $database = mysqli_connect($config['host'], $config['username'], $config['password'], $config['database']);
+    $database = mysqli_connect($config->host, $config->username, $config->password, $config->database);
 
     // Check connection.
     if (!$database) {
@@ -31,7 +31,7 @@ function db_preprocess_html() {
     foreach ($tables as $name => $table) {
         $cell = new stdClass();
         $cell->name = $name;
-        $name = $config['prefix'] . $name;
+        $name = $config->prefix . $name;
         $cell->prefixed_name = $name;
 
         // Icon set.
@@ -66,7 +66,7 @@ function db_preprocess_html() {
     return $vars;
 }
 
-function get_config() {
+/*function get_config() {
     return array(
         'host' => 'server1i.tursites.com.br',
         'username' => 'tursites_tursite',
@@ -74,6 +74,11 @@ function get_config() {
         'database' => 'tursites_tursites',
         'prefix' => '111_'
     );
+}*/
+
+function get_config() {
+    $json = new File('config.json');
+    return $json->getJSON();
 }
 
 function get_tables() {
@@ -90,7 +95,7 @@ function get_tables() {
                     'type' => 'VARCHAR(30)',
                     'not_null' => true
                 ),
-                'description' => 'VARCHAR(255)',
+                'description' => 'TEXT',
                 'value' => array(
                     'type' => 'FLOAT',
                     'not_null' => true
@@ -100,10 +105,7 @@ function get_tables() {
                     'type' => 'INT',
                     'not_null' => true
                 ),
-                'user' => array(
-                    'type' => 'INT',
-                    'not_null' => true
-                ),
+                'group_code' => 'VARCHAR(255)',
                 'type' => array(
                     'type' => 'VARCHAR(15)',
                     'not_null' => true
@@ -137,6 +139,7 @@ function get_tables() {
                     'type' => 'VARCHAR(255)',
                     'not_null' => true
                 ),
+                'group_code' => 'VARCHAR(255)',
                 'created' => array(
                     'type' => 'INT',
                     'not_null' => true
