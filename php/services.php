@@ -4,46 +4,47 @@ define('TYPE_INCOME', 'income');
 define('TYPE_OUTCOME', 'outcome');
 
 function services_sumary_current_in($params) {
-    // Get first day of the month
-    $day = new DateTime('first day of this month');
-    $day->setTime(0, 0, 0);
-    $day_stamp = $day->format('U');
+    // Get date params.
+    $year = $params['date']['year'];
+    $month = $params['date']['month'];
 
     $result = array();
-    $result['sumary'] = database_get_entries('income', $day_stamp, time(), 3);
-    $result['total'] = database_get_entries_sum('income', $day_stamp, time());
+    $result['sumary'] = Entry::load_month($year, $month, Entry::$type_income, 3);
+    $result['total'] = n_format(Entry::load_sum($year, $month, Entry::$type_income));
 
     return $result;
 }
 
 function services_sumary_current_out($params) {
-    // Get first day of the month
-    $day = new DateTime('first day of this month');
-    $day->setTime(0, 0, 0);
-    $day_stamp = $day->format('U');
+    // Get date params.
+    $year = $params['date']['year'];
+    $month = $params['date']['month'];
 
     $result = array();
-    $result['sumary'] = database_get_entries('outcome', $day_stamp, time(), 3);
-    $result['total'] = database_get_entries_sum('outcome', $day_stamp, time());
+    $result['sumary'] = Entry::load_month($year, $month, Entry::$type_income, 3);
+    $result['total'] = n_format(Entry::load_sum($year, $month, Entry::$type_income));
 
     return $result;
 }
 
 function services_sumary_lastmonth($params) {
-    // Get first day of the month
-    $first_day = new DateTime('first day of last month');
-    $first_day->setTime(0, 0, 0);
-    $first_day_stamp = $first_day->format('U');
-    $last_day = new DateTime('last day of last month');
-    $last_day->setTime(23, 59, 59);
-    $last_day_stamp = $last_day->format('U');
+    // Get date params.
+    $year = $params['date']['year'];
+    $month = intval($params['date']['month']) - 1;
+    if ($month <= 0) {
+        $year = $year - 1;
+        $month = 12;
+    }
 
     $result = array();
-    $result['sumary'] = database_get_entries('all', $first_day_stamp, $last_day_stamp, 3);
+    $result['sumary'] = Entry::load_month($year, $month, Entry::$type_all, 3);
+
     $result['total'] = array();
-    $result['total']['in'] = database_get_entries_sum('income', $first_day_stamp, $last_day_stamp);
-    $result['total']['out'] = database_get_entries_sum('outcome', $first_day_stamp, $last_day_stamp);
-    //$result['total']['total'] = $result['total']['in'] - $result['total']['out'];
+    $total_in = Entry::load_sum($year, $month, Entry::$type_income);
+    $total_out = Entry::load_sum($year, $month, Entry::$type_outcome);
+    $result['total']['in'] = n_format($total_in);
+    $result['total']['out'] = n_format($total_out);
+    $result['total']['total'] = n_format($total_in - $total_out);
 
     return $result;
 }
@@ -55,10 +56,13 @@ function services_month_list($params) {
     $day_stamp = $day->format('U');
 
     $result = array();
-    $result['result'] = database_get_entries('all', $day_stamp, time(), 9999);
+    $result['result'] = Entry::load_month($year, $month, Entry::$type_all);
     $result['total'] = array();
-    $result['total']['in'] = database_get_entries_sum('income', $day_stamp, time());
-    $result['total']['out'] = database_get_entries_sum('outcome', $day_stamp, time());
+    $total_in = Entry::load_sum($year, $month, Entry::$type_income);
+    $total_out = Entry::load_sum($year, $month, Entry::$type_outcome);
+    $result['total']['in'] = n_format($total_in);
+    $result['total']['out'] = n_format($total_out);
+    $result['total']['total'] = n_format($total_in - $total_out);
 
     return $result;
 }
@@ -138,7 +142,7 @@ function database_get_entries_sum($type, $time_start, $time_end) {
         ->where('date <', $time_end)
         ->where('group_code', $user->getGroup())
         ->fetch();
-    
+
     if (empty($result)) {
         return 0;
     }

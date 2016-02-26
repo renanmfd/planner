@@ -206,6 +206,10 @@
                     }
                 });
             });
+            params['date'] = {
+                'year': $('#dateYear').val(),
+                'month': $('#dateMonth').val()
+            };
             //console.log('data-ajax', this, method, params);
 
             $.ajax('', {
@@ -314,14 +318,22 @@
             });
         });
 
+        // Update BOX information on page load.
         ajaxUpdateBox();
-        ajaxUpdateTab();
+
+        // Update TAB information on click.
+        $('#tabsHead li a', '#tabs').on('click', function () {
+            var name = $(this).data('ajax-tab');
+            ajaxUpdateTab(name);
+        });
     });
 
     /** HELPER FUNCTION (global) **/
 
     window.format_money = function (value, currency) {
-        var intpart = 0,
+        currency = currency || 'R$';
+        return currency + ' ' + value;
+        /*var intpart = 0,
             intpart_array = [],
             decpart = 0,
             value_int = Math.trunc(Math.round(value * 100));
@@ -339,7 +351,7 @@
         }
         intpart_array.reverse();
 
-        return currency + ' ' + intpart_array.join('.') + ',' + decpart;
+        return currency + ' ' + intpart_array.join('.') + ',' + decpart;*/
     };
 
     window.format_date = function (timestamp) {

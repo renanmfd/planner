@@ -1,28 +1,74 @@
 <?php
 
-$first_day = new DateTime('first day of last month');
-$first_day->setTime(0, 0, 0);
-$first_day_stamp = $first_day->format('U');
-$last_day = new DateTime('last day of last month');
-$last_day->setTime(23, 59, 59);
-$last_day_stamp = $last_day->format('U');
+init_session();
+check_logged();
+require_once 'php/classes/Form.class.php';
 
-print 'Test: test.php';
-print '<hr>';
-print $first_day->format('Y-m-d H:i:s');
-print '<hr>';
-print $first_day_stamp;
-print '<hr>';
-print $last_day->format('Y-m-d H:i:s');
-print '<hr>';
-print $last_day_stamp;
+header('Content-Type: text/html');
+echo '<!DOCTYPE html>';
+echo '<head><title>Test</title>';
+echo '<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">';
+echo '</head><body>';
 
-print '<hr>';
+echo 'Test';
 
-print_r($_SESSION);
+$form = new Form();
 
-session_destroy();
+$container = new FormContainer('div', array('container'));
 
-print '<hr>';
+/*
+$row = new FormContainer();
+$row->attr('class', 'row');
 
-print_r($_SESSION);
+$leftside = new FormContainer();
+$leftside->attr('class', 'col-xs-6');
+
+$rightside = new FormContainer();
+$rightside->attr('class', 'col-xs-6');
+*/
+$name = new FormItem('Name', 'text');
+$name->id('registerName')
+    ->attr('data-validation', 'name')
+    ->required();
+
+$email = new FormItem('Email', 'email');
+$name->id('registerEmail')
+    ->required();
+
+$type = new FormItem('Type', 'select');
+$type->id('registerName')
+    ->option(0, 'Nenhum')
+    ->option(1, 'Programador')
+    ->option(2, 'Analista')
+    ->option(3, 'Suporte')
+    ->option(4, 'Comercial')
+    ->option(5, 'Financeiro');
+
+$color = new FormItem('Theme', 'color');
+$color->id('registerTheme');
+
+$date = new FormItem('Date', 'date');
+$date->id('registerDate');
+
+$newsletter = new FormItem('Newsletter', 'checkbox');
+$newsletter->id('registerNewsletter');
+
+$submit = new FormItem('Submit', 'submit');
+$submit->id('registerSubmit');
+
+$container
+    ->add($name)
+    ->add($email)
+    ->add($type)
+    ->add($color)
+    ->add($date)
+    ->add($newsletter)
+    ->add($submit);
+
+$form->add($container);
+
+echo $form->generate();
+
+krumo($form);
+
+echo '</body>';

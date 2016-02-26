@@ -6,11 +6,6 @@ define('FOLDERPATH_STYLES', 'css/');
 
 function resolve_request() {
     init_session();
-    
-    // Prepare database variables.
-    $config = $GLOBALS['config'];
-    $GLOBALS['db'] = new Database($config->host, $config->username,
-                                  $config->password, $config->database);
 
     check_logged();
 
@@ -131,7 +126,7 @@ function preprocess_html() {
     $vars['#template'] = 'templates/html.tpl.php';
 
     $vars['body_classes'] = 'html';
-    
+
     //debug($GLOBALS, 'GLOBALS');
 
     $js_array = get_js();
@@ -211,27 +206,6 @@ function preprocess_content() {
             'label' => 'Month List',
             'icon' => 'glyphicon glyphicon-signal',
             'id' => 'tabMonthList',
-            'content' => 'content_month_list',
-        ),
-        array(
-            'index' => 2,
-            'label' => 'Tab 2',
-            'icon' => 'glyphicon glyphicon-signal',
-            'id' => 'tabBlah',
-            'content' => 'content_month_list',
-        ),
-        array(
-            'index' => 3,
-            'label' => 'Tabblets 3',
-            'icon' => 'glyphicon glyphicon-signal',
-            'id' => 'tabLebleh',
-            'content' => 'content_month_list',
-        ),
-        array(
-            'index' => 4,
-            'label' => 'Tabblets 4',
-            'icon' => 'glyphicon glyphicon-signal',
-            'id' => 'tabLeblsdfsdeh',
             'content' => 'content_month_list',
         )
     );
@@ -338,6 +312,11 @@ function empty_box_list($name = 'data') {
         'total' => true
     );
     return $list;
+}
+
+function n_format($value) {
+    $value = round($value, 2);
+    return number_format($value, 2, ',', '.');
 }
 
 //========================

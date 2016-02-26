@@ -54,6 +54,11 @@ class Theme {
         for ($i = 0; $i < 12; $i += 1) {
             $list[$i]['value'] = $i + 1;
             $list[$i]['label'] = date('M', mktime(0, 0, 0, $i + 1));
+            if ($list[$i]['label'] == date('M')) {
+                $list[$i]['attr'] = array(
+                    'selected' => 'true'
+                );
+            }
         }
         $vars['months'] = Theme::form_select($list, array(
             'id' => 'dateMonth',
