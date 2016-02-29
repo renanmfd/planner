@@ -72,6 +72,11 @@
     .panel {
         margin-top: 15px;
     }
+    
+    .panel-body {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
 
     .container {
         width: 100%;
@@ -87,24 +92,24 @@
         }
 
         &.income {
-            .date, actions, .value {
+            .date, actions, .value:before, .value:after {
                 background-color: @entryBoxIncomeBg1;
             }
 
             &:nth-child(2n) {
-                .date, actions, .value {
+                .date, actions, .value:before, .value:after {
                     background-color: @entryBoxIncomeBg2;
                 }
             }
         }
 
         &.outcome {
-            .date, actions, .value {
+            .date, actions, .value:before, .value:after {
                 background-color: @entryBoxOutcomeBg1;
             }
 
             &:nth-child(2n) {
-                .date, actions, .value {
+                .date, actions, .value:before, .value:after {
                     background-color: @entryBoxOutcomeBg2;
                 }
             }
@@ -169,14 +174,30 @@
             right: 0;
             width: @entryValueWidth;
             height: @entryBoxSize;
-            padding: 0 10px;
+            padding: 0 15px;
             float: none;
             font-size: @fontNormal;
             font-weight: bold;
             text-align: right;
             line-height: @entryBoxSize;
-            background-color: @gray;
-            color: @white;
+            color: @coal;
+            
+            &:before,
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: block;
+                width: 3px;
+                height: @entryBoxSize;
+            }
+            
+            &:after {
+                right: 0;
+                left: initial;
+                width: 10px;
+            }
         }
 
         .desc {

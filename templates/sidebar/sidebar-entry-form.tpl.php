@@ -48,8 +48,8 @@
         <div class="row form-group input-date" style="display: none;">
             <label class="col-xs-12" for="add<?php echo $type; ?>Date">Date</label>
             <div class="col-xs-12">
-                <input type="text" id="add<?php echo $type; ?>Date" class="datepicker form-control"
-                       value="<?php echo date('d/m/Y'); ?>">
+                <input type="date" id="add<?php echo $type; ?>Date" class="datepicker form-control" 
+                       readonly="true">
             </div>
         </div>
 

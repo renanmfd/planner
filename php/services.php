@@ -21,8 +21,8 @@ function services_sumary_current_out($params) {
     $month = $params['date']['month'];
 
     $result = array();
-    $result['sumary'] = Entry::load_month($year, $month, Entry::$type_income, 3);
-    $result['total'] = n_format(Entry::load_sum($year, $month, Entry::$type_income));
+    $result['sumary'] = Entry::load_month($year, $month, Entry::$type_outcome, 3);
+    $result['total'] = n_format(Entry::load_sum($year, $month, Entry::$type_outcome));
 
     return $result;
 }
@@ -51,9 +51,8 @@ function services_sumary_lastmonth($params) {
 
 function services_month_list($params) {
     // Get first day of the month
-    $day = new DateTime('first day of this month');
-    $day->setTime(0, 0, 0);
-    $day_stamp = $day->format('U');
+    $year = $params['date']['year'];
+    $month = intval($params['date']['month']);
 
     $result = array();
     $result['result'] = Entry::load_month($year, $month, Entry::$type_all);
@@ -63,6 +62,8 @@ function services_month_list($params) {
     $result['total']['in'] = n_format($total_in);
     $result['total']['out'] = n_format($total_out);
     $result['total']['total'] = n_format($total_in - $total_out);
+    
+    $result['params'] = $params;
 
     return $result;
 }
@@ -75,7 +76,7 @@ function services_add_income($params) {
         'description' => $params['description'],
         'value' => $params['value'],
         'monthly' => ($params['isMonthly'] == 'false') ? 0 : intval($params['monthly']),
-        'date' => ($params['isToday'] == 'false') ? $params['date'] : time(),
+        'date' => ($params['isToday'] == 'false') ? strtotime($params['date']) : time(),
         'group_code' => $user->getGroup(),
         'type' => 'income',
         'created' => time()
@@ -93,7 +94,7 @@ function services_add_outcome($params) {
         'description' => $params['description'],
         'value' => $params['value'],
         'monthly' => ($params['isMonthly'] == 'false') ? 0 : intval($params['monthly']),
-        'date' => ($params['isToday'] == 'false') ? $params['date'] : time(),
+        'date' => ($params['isToday'] == 'false') ? strtotime($params['date']) : time(),
         'group_code' => $user->getGroup(),
         'type' => 'outcome',
         'created' => time()

@@ -63,6 +63,8 @@ function check_logged() {
             return true;
         }
     }
+    unset($_SESSION['user']);
+    session_destroy();
     // If user is not logged, go to login/register script.
     header('Location: user.php');
     exit(0);

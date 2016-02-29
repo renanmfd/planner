@@ -1,14 +1,7 @@
 {
-    "host": "server1i.tursites.com.br",
-    "username": "tursites_tursite",
-    "password": "tur.001",
-    "database": "tursites_tursites",
-    "prefix": "111_",
-    "extra": {
-        "host": "localhost",
-        "username": "planner",
-        "password": "planner",
-        "database": "planner",
-        "prefix": ""
-    }
+    "host": "localhost",
+    "username": "planner",
+    "password": "planner",
+    "database": "planner",
+    "prefix": ""
 }

@@ -29,9 +29,6 @@
                 <span class="title">Logout</span>
                 <span class="icon glyphicon glyphicon-remove" title="Logout"></span>
             </a>
-            <div class="menu-body" style="display: none;">
-                <?php echo $outcome_form; ?>
-            </div>
         </li>
     </ul>
 </div>

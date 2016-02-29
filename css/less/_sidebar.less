@@ -12,7 +12,7 @@
     overflow: hidden;
     z-index: 1000;
 
-    @media screen and (min-width: @screen-xs-max) {
+    @media screen and (min-width: @screen-sm-min) {
         height: 100%;
         width: @sidebarWidth;
         right: initial;
@@ -23,6 +23,11 @@
             a:hover {
                 outline: thin solid rgba(43, 69, 212, 0.58);
             }
+        }
+        
+        .container {
+            width: 100%;
+            padding: 0;
         }
     }
 
@@ -40,6 +45,10 @@
             display: inline-block;
             vertical-align: top;
             font-size: normal;
+            
+            @media screen and (min-width: @screen-sm-min) {
+                display: block;
+            }
         }
     }
 
@@ -61,6 +70,10 @@
             text-align: right;
             font-size: @fontLarge;
             line-height: 30px;
+            
+            @media screen and (min-width: @screen-sm-min) {
+                display: inline-block;
+            }
         }
 
         .icon {

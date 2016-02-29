@@ -10,10 +10,14 @@ var Modal = (function ($) {
         $modalTitle = $('#modalHeader .title', selector),
         $modalBody = $('#modalBody', selector),
         $modalClose = $('#modalClose', selector),
-        callback = false;
+        callbackClose = false;
 
-    function open(onClose) {
-        callback = onClose || false;
+    function onClose(callback) {
+        callbackClose = callback || false;
+    }
+
+    function open(callback) {
+        onClose(callback);
         if (!$modalContainer.hasClass('open')) {
             $modalContainer.addClass('open');
             $modalContainer.fadeIn();
@@ -23,8 +27,8 @@ var Modal = (function ($) {
     function close() {
         $modalContainer.removeClass('open');
         $modalContainer.fadeOut(400, function () {
-            if (callback) {
-                callback();
+            if (callbackClose) {
+                callbackClose();
             }
         });
     }
@@ -54,8 +58,8 @@ var Modal = (function ($) {
     });
 
     return {
-        open: function (onClose) {
-            open(onClose);
+        open: function (callback) {
+            open(callback);
         },
         close: function () {
             close();
@@ -74,6 +78,11 @@ var Modal = (function ($) {
         content: function (title, body) {
             setTitle(title);
             setBody(body);
+            return this;
+        },
+        // Events
+        onClose: function (callback) {
+            onClose(callback);
             return this;
         }
     };

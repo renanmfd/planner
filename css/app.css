@@ -25,10 +25,14 @@
 body {
   padding-top: 50px;
 }
-@media screen and (min-width: 767px) {
+@media screen and (min-width: 768px) {
   body {
     padding-left: 50px;
+    padding-top: 0;
   }
+}
+.container {
+  max-width: 100%;
 }
 /** BOX **/
 .box {
@@ -44,6 +48,11 @@ body {
 }
 .box.collapsed .box-header .glyphicon-menu-down {
   opacity: 1;
+}
+@media screen and (min-width: 768px) {
+  .box.collapsed .box-header .glyphicon {
+    display: none;
+  }
 }
 .box .box-header {
   position: relative;
@@ -65,6 +74,11 @@ body {
   padding: 10px;
   text-decoration: none !important;
 }
+@media screen and (min-width: 768px) {
+  .box .box-header a {
+    pointer-events: none;
+  }
+}
 .box .box-title {
   margin: 0;
   text-align: center;
@@ -73,6 +87,11 @@ body {
 .box .box-body {
   padding: 10px 0;
   font-size: 14px;
+}
+@media screen and (min-width: 768px) {
+  .box .box-body {
+    display: block !important;
+  }
 }
 .box .box-list {
   list-style: none;
@@ -330,36 +349,44 @@ body {
 #tabs .panel {
   margin-top: 15px;
 }
+#tabs .panel-body {
+  padding-top: 0;
+  padding-bottom: 0;
+}
 #tabs .container {
   width: 100%;
   padding: 0;
 }
 #tabs .entry {
   position: relative;
-  background-color: #fcfcfc;
+  background-color: #e8f3f5;
 }
 #tabs .entry:nth-child(2n) {
-  background-color: #f1fbfc;
+  background-color: #e7e1f8;
 }
 #tabs .entry.income .date,
 #tabs .entry.income actions,
-#tabs .entry.income .value {
-  background-color: #ccfac6;
+#tabs .entry.income .value:before,
+#tabs .entry.income .value:after {
+  background-color: #2abf2a;
 }
 #tabs .entry.income:nth-child(2n) .date,
 #tabs .entry.income:nth-child(2n) actions,
-#tabs .entry.income:nth-child(2n) .value {
-  background-color: #b9f4b2;
+#tabs .entry.income:nth-child(2n) .value:before,
+#tabs .entry.income:nth-child(2n) .value:after {
+  background-color: #1bde1b;
 }
 #tabs .entry.outcome .date,
 #tabs .entry.outcome actions,
-#tabs .entry.outcome .value {
-  background-color: #f59494;
+#tabs .entry.outcome .value:before,
+#tabs .entry.outcome .value:after {
+  background-color: #ce2323;
 }
 #tabs .entry.outcome:nth-child(2n) .date,
 #tabs .entry.outcome:nth-child(2n) actions,
-#tabs .entry.outcome:nth-child(2n) .value {
-  background-color: #fda4a4;
+#tabs .entry.outcome:nth-child(2n) .value:before,
+#tabs .entry.outcome:nth-child(2n) .value:after {
+  background-color: #ff1212;
 }
 #tabs .entry .date {
   position: absolute;
@@ -404,7 +431,7 @@ body {
 #tabs .entry .title {
   height: 30px;
   padding-left: 45px;
-  padding-right: 115px;
+  padding-right: 135px;
   font-size: 14px;
   font-weight: normal;
   line-height: 30px;
@@ -413,16 +440,30 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  width: 100px;
+  width: 120px;
   height: 30px;
-  padding: 0 10px;
+  padding: 0 15px;
   float: none;
   font-size: 14px;
   font-weight: bold;
   text-align: right;
   line-height: 30px;
-  background-color: #bcbcbc;
-  color: #ffffff;
+  color: #3b3b3b;
+}
+#tabs .entry .value:before,
+#tabs .entry .value:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 3px;
+  height: 30px;
+}
+#tabs .entry .value:after {
+  right: 0;
+  left: initial;
+  width: 10px;
 }
 #tabs .entry .desc {
   display: none;
@@ -440,7 +481,7 @@ body {
   overflow: hidden;
   z-index: 1000;
 }
-@media screen and (min-width: 767px) {
+@media screen and (min-width: 768px) {
   #sidebar {
     height: 100%;
     width: 220px;
@@ -451,6 +492,10 @@ body {
   }
   #sidebar.collapsed a:hover {
     outline: thin solid rgba(43, 69, 212, 0.58);
+  }
+  #sidebar .container {
+    width: 100%;
+    padding: 0;
   }
 }
 #sidebar > .row {
@@ -466,6 +511,11 @@ body {
   display: inline-block;
   vertical-align: top;
   font-size: normal;
+}
+@media screen and (min-width: 768px) {
+  #sidebar ul.menu li {
+    display: block;
+  }
 }
 #sidebar .menu-title {
   display: block;
@@ -485,6 +535,11 @@ body {
   font-size: 20px;
   line-height: 30px;
 }
+@media screen and (min-width: 768px) {
+  #sidebar .menu-title .title {
+    display: inline-block;
+  }
+}
 #sidebar .menu-title .icon {
   width: 50px;
   text-align: center;
@@ -493,6 +548,29 @@ body {
 }
 #sidebar .menu-title:focus {
   border: none;
+}
+#footer {
+  padding-top: 30px;
+  padding-bottom: 10px;
+  background-color: #060450;
+  color: #ffffff;
+}
+@media screen and (min-width: 768px) {
+  #footer {
+    opacity: 0.9;
+  }
+}
+#footer .dev {
+  font-size: 12px;
+}
+#footer .copy {
+  margin-top: 10px;
+  text-align: right;
+}
+@media screen and (min-width: 768px) {
+  #footer .copy {
+    margin-top: 0;
+  }
 }
 input,
 select,

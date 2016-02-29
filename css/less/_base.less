@@ -8,9 +8,14 @@
 body {
     padding-top: @sidebarCollapsedWidth;
 
-    @media screen and (min-width: @screen-xs-max) {
+    @media screen and (min-width: @screen-sm-min) {
         padding-left: @sidebarCollapsedWidth;
+        padding-top: 0;
     }
+}
+
+.container {
+    max-width: 100%;
 }
 
 /** BOX **/
@@ -31,7 +36,11 @@ body {
             .glyphicon-menu-down {
                 opacity: 1;
             }
-
+            @media screen and (min-width: @screen-sm-min) {
+                .glyphicon {
+                    display: none;
+                }
+            }
         }
     }
 
@@ -55,6 +64,10 @@ body {
             display: block;
             padding: 10px;
             text-decoration: none !important;
+            
+            @media screen and (min-width: @screen-sm-min) {
+                pointer-events: none;
+            }
         }
     }
 
@@ -67,6 +80,10 @@ body {
     .box-body {
         padding: 10px 0;
         font-size: @fontNormal;
+        
+        @media screen and (min-width: @screen-sm-min) {
+            display: block !important;
+        }
     }
 
     .box-list {

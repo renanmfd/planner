@@ -1,2 +1,25 @@
 // main: styles.less
 
+#footer {
+    padding-top: 30px;
+    padding-bottom: 10px;
+    background-color: @sidebarBgColor;
+    color: @white;
+    
+    @media screen and (min-width: @screen-sm-min) {
+        opacity: 0.9;
+    }
+    
+    .dev {
+        font-size: @fontSmall;
+    }
+    
+    .copy {
+        margin-top: 10px;
+        text-align: right;
+        
+        @media screen and (min-width: @screen-sm-min) {
+            margin-top: 0;    
+        }
+    }
+}

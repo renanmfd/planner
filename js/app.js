@@ -40,7 +40,10 @@
                     var tab = $(this).attr('href');
                     event.preventDefault();
                     $('.tab-item', '#tabs').addClass('hidden');
+                    $('.panel.active', '#tabs').removeClass('active');
                     $(tab, '#tabs').removeClass('hidden');
+                    $(tab, '#tabs').find('.panel').addClass('active');
+
                     console.log('Tab default click', this);
                 }
             },
@@ -143,8 +146,13 @@
         console.log('app.js is running good...');
 
         // Datepicker.
-        $('#addIncomeDate, #addOutcomeDate').datepicker({
-            dateFormat: 'dd/mm/yy'
+        $.datepicker.setDefaults({
+            dateFormat: 'dd M yy',
+            autoclose: true
+        });
+        $('input.datepicker').each(function () {
+            $(this).datepicker();
+            $(this).datepicker('setDate', new Date());
         });
 
         // Click events.

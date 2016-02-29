@@ -10,26 +10,39 @@
             </div>
         </div>
         <div class="panel-body">
-            <div id="template" class="row entry">
-                <div class="cell date col-xs-3">&nbsp</div>
-                <div class="cell title col-xs-12">&nbsp</div>
-                <div class="cell value col-xs-12">&nbsp</div>
-                <div class="cell desc col-xs-12">&nbsp</div>
-                <div class="cell actions col-xs-3" data-id="-1">
-                    <a href="#" class="action action-edit">
-                        <span class="sr-only">Edit</span>
-                        <span class="glyphicon glyphicon-edit"></span>
-                    </a>
-                    <a href="#" class="action action-delete">
-                        <span class="sr-only">Delete</span>
-                        <span class="glyphicon glyphicon-share"></span>
-                    </a>
+            <div class="entry-wrapper">
+                <div id="template" class="row entry">
+                    <div class="cell date col-xs-3">&nbsp;</div>
+                    <div class="cell title col-xs-12">&nbsp;</div>
+                    <div class="cell value col-xs-12">&nbsp;</div>
+                    <div class="cell desc col-xs-12">&nbsp;</div>
+                    <div class="cell actions col-xs-3" data-id="-1">
+                        <a href="#" class="action action-edit">
+                            <span class="sr-only">Edit</span>
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                        <a href="#" class="action action-delete">
+                            <span class="sr-only">Delete</span>
+                            <span class="glyphicon glyphicon-share"></span>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div id="total" class="row">
-                <div class="cell total-income col-xs-4">&nbsp</div>
-                <div class="cell total-outcome col-xs-4">&nbsp</div>
-                <div class="cell total-total col-xs-4">&nbsp</div>
+            <div class="entry-total">
+                <div class="row">
+                    <div class="cell total-income col-xs-4">
+                        <div class="name">Incomes</div>
+                        <div class="value">&nbsp;</div>
+                    </div>
+                    <div class="cell total-outcome col-xs-4">
+                        <div class="name">Outcomes</div>
+                        <div class="value">&nbsp;</div>
+                    </div>
+                    <div class="cell total-total col-xs-4">
+                        <div class="name">Total</div>
+                        <div class="value">&nbsp;</div>
+                    </div>
+                </div>
             </tr>
         </div>
     </table>
