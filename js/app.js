@@ -46,12 +46,13 @@
                 }
             },
             { // SETTINGS - Settings.
-                selector: '#sidebarSettings a',
+                selector: '#sidebarSettings a.btn',
                 handler: function (event) {
-                    var $body = $(this).parent().find('.menu-body'),
-                        $form = $body.find('#sidebarSettings').detach();
+                    var $body = $(this).parent().find('.action-form'),
+                        $form = $body.find('form').detach(),
+                        title = $body.data('title');
                     event.preventDefault();
-                    Modal.setTitle('Settings').setBody($form).open(function () {
+                    Modal.clean().setTitle(title).setBody($form).open(function () {
                         $form.detach().appendTo($body);
                     });
                 }

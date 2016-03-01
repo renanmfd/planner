@@ -62,7 +62,7 @@ function services_month_list($params) {
     $result['total']['in'] = n_format($total_in);
     $result['total']['out'] = n_format($total_out);
     $result['total']['total'] = n_format($total_in - $total_out);
-    
+
     $result['params'] = $params;
 
     return $result;
@@ -112,7 +112,7 @@ function services_logout($params) {
 /**
  * Database Operations.
  */
-
+/*
 function database_get_entries($type, $time_start, $time_end, $limit = 20, $offset = 0) {
     global $db, $config, $user;
 
@@ -149,4 +149,4 @@ function database_get_entries_sum($type, $time_start, $time_end) {
         return 0;
     }
     return array_shift($results)['value'];
-}
+}*/

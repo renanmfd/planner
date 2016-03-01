@@ -33,6 +33,15 @@ var Modal = (function ($) {
         });
     }
 
+    function clean() {
+        //$modalContainer.removeClass('open');
+        if (callbackClose) {
+            callbackClose();
+        }
+        setTitle('');
+        setBody('');
+    }
+
     function setTitle(title) {
         $modalTitle.text(title);
     }
@@ -78,6 +87,10 @@ var Modal = (function ($) {
         content: function (title, body) {
             setTitle(title);
             setBody(body);
+            return this;
+        },
+        clean: function () {
+            clean();
             return this;
         },
         // Events

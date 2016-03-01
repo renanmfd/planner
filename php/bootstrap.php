@@ -260,6 +260,7 @@ function preprocess_settings() {
     global $user;
     $vars = get_vars();
 
+    debug($user, 'user');
     $file = new File('templates/sidebar/sidebar-settings-user-form.tpl.php');
     $vars['form_edit_user'] = $file->template(array('user' => $user));
 

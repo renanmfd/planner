@@ -8,7 +8,7 @@
                     <span class="glyphicon glyphicon-user"></span>
                     Edit user
                 </a>
-                <div class="action-form hidden">
+                <div class="action-form hidden" data-title="User edit">
                     <?php echo $form_edit_user; ?>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                     <span class="glyphicon glyphicon-star"></span>
                     Edit group
                 </a>
-                <div class="action-form hidden">
+                <div class="action-form hidden" data-title="Group edit">
                     <?php echo $form_edit_group; ?>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                     <span class="glyphicon glyphicon-envelope"></span>
                     Group invitation
                 </a>
-                <div class="action-form hidden">
+                <div class="action-form hidden" data-title="Invititation">
                     <?php echo $form_invitation; ?>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                     <span class="glyphicon glyphicon-alert"></span>
                     Extra
                 </a>
-                <div class="action-form hidden">
+                <div class="action-form hidden" data-title="Extra">
                     <?php echo ''; ?>
                 </div>
             </div>

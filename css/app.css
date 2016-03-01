@@ -549,6 +549,14 @@ body {
 #sidebar .menu-title:focus {
   border: none;
 }
+#sidebarSettings {
+  padding-top: 10px;
+}
+#sidebarSettings a.btn {
+  display: block;
+  max-width: 200px;
+  margin: 0 auto;
+}
 #footer {
   padding-top: 30px;
   padding-bottom: 10px;
