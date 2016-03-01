@@ -12,13 +12,13 @@
      * @param {jQuery} $form Form object.
      */
     function reset_form($form) {
-        $('.checkbox-use-preset input', $form).prop('checked', false);
-        $('.checkbox-is-monthly input', $form).prop('checked', false);
-        $('.checkbox-is-today input', $form).prop('checked', true);
-        $('.input-date input', $form).hide();
-        $('.input-monthly input', $form).hide();
-        $('.input-preset input', $form).hide();
-        $('input, textarea', $form).not('[type="submit"]').val('');
+        //$('.checkbox-use-preset input', $form).prop('checked', false);
+        //$('.checkbox-is-monthly input', $form).prop('checked', false);
+        //$('.checkbox-is-today input', $form).prop('checked', true);
+        //$('.input-date', $form).hide();
+        //$('.input-monthly', $form).hide();
+        //$('.input-preset', $form).hide();
+        $('.reset', $form).val('');
     }
 
     /**
@@ -63,91 +63,6 @@
             });
         });
     }
-
-    /**
-     * Update BOX content with an ajax call.
-     * @param {String} name Name of the container to update. If not set, all will be updated.
-     */
-    /*function ajaxUpdateBox(name) {
-        var selector = name ? '[data-ajax-box="' + name + '"]' : '[data-ajax-box]';
-
-        // Test
-        $(selector).each(function () {
-            var method = $(this).data('ajax-box'),
-                params = {},
-                that = this;
-
-            params.date = {
-                year: $('#dateYear').val(),
-                month: $('#dateMonth').val()
-            };
-            //console.log('data-ajax', this, method, params);
-
-            $.ajax('', {
-                method: 'POST',
-                data: {
-                    services: true,
-                    action: method,
-                    params: params
-                },
-                beforeSend: function () {
-                    addThrobber(that);
-                },
-                success: function (data) {
-                    console.log('AJAX success:', method, data);
-                    handlers[method].success.call(that, data.data);
-                    removeThrobber(that);
-                },
-                error: function (ajax) {
-                    console.log('AJAX error:', method, ajax);
-                    handlers[method].error.call(that, ajax);
-                    removeThrobber(that);
-                }
-            });
-        });
-    }*/
-
-    /**
-     * Update TABS content with an ajax call.
-     * @param {String} name Name of the container to update. If not set, all will be updated.
-     */
-    /*function ajaxUpdateTab(name) {
-        var selector = name ? '[data-ajax-tab="' + name + '"]' : '[data-ajax-tab]';
-
-        $(selector).each(function () {
-            var method = $(this).data('ajax-tab'),
-                params = {},
-                that = this;
-
-            params.date = {
-                year: $('#dateYear').val(),
-                month: $('#dateMonth').val()
-            };
-            //console.log('data-ajax', this, method, params);
-
-            $.ajax('', {
-                method: 'POST',
-                data: {
-                    services: true,
-                    action: method,
-                    params: params
-                },
-                beforeSend: function () {
-                    addThrobber(that);
-                },
-                success: function (data) {
-                    console.log('AJAX success:', method, data);
-                    handlers[method].success.call(that, data.data);
-                    removeThrobber(that);
-                },
-                error: function (ajax) {
-                    console.log('AJAX error:', method, ajax);
-                    handlers[method].error.call(that, ajax);
-                    removeThrobber(that);
-                }
-            });
-        });
-    }*/
 
     /** CLICK REQUEST HANDLERS **/
     requests = [

@@ -40,7 +40,7 @@
             <label class="col-xs-12" for="add<?php echo $type; ?>Monthly">Montly until</label>
             <div class="col-xs-12">
                 <input type="text" id="add<?php echo $type; ?>Monthly" placeholder="for X months"
-                       class="form-control">
+                       class="form-control reset">
             </div>
         </div>
 
@@ -58,7 +58,7 @@
             <label class="col-xs-12" for="add<?php echo $type; ?>Name">Name</label>
             <div class="col-xs-12">
                 <input type="text" id="add<?php echo $type; ?>Name" data-validation="itemName"
-                       class="form-control">
+                       class="form-control reset">
             </div>
         </div>
 
@@ -67,7 +67,7 @@
             <label class="col-xs-12" for="add<?php echo $type; ?>Description">Description</label>
             <div class="col-xs-12">
                 <textarea id="add<?php echo $type; ?>Description" data-validation="itemDescription"
-                          class="form-control"></textarea>
+                          class="form-control reset"></textarea>
             </div>
         </div>
 
@@ -76,7 +76,7 @@
             <label class="col-xs-12" for="add<?php echo $type; ?>Value">Value</label>
             <div class="col-xs-12">
                 <input type="text" id="add<?php echo $type; ?>Value" data-validation="money"
-                       class="form-control">
+                       class="form-control reset">
             </div>
         </div>
 

@@ -170,11 +170,12 @@ class Entry {
             $query = $query->where('type', $type);
         }
         $results = $query
-            ->where('date >', $date_start)
+            ->where('date >=', $date_start)
             ->where('date <', $date_end)
             ->where('group_code', $user->getGroup())
             ->limit($limit, $offset)
             ->order_by('date', $order)
+            ->order_by('id', $order)
             ->fetch();
 
         if (!empty($results)) {
@@ -204,7 +205,7 @@ class Entry {
             ->select_sum('value')
             ->from($config->prefix . 'entries')
             ->where('type', $type)
-            ->where('date >', $date_start)
+            ->where('date >=', $date_start)
             ->where('date <', $date_end)
             ->where('group_code', $user->getGroup())
             ->fetch();
