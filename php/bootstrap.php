@@ -242,12 +242,32 @@ function preprocess_sidebar() {
     $vars['income_form'] = $file->template(array('type' => 'Income'));
     $vars['outcome_form'] = $file->template(array('type' => 'Outcome'));
 
+    $file = new File('templates/sidebar/sidebar-settings-form.tpl.php');
+    $settings_vars = preprocess_settings();
+    $vars['settings_form'] = $file->template($settings_vars);
+
     return $vars;
 }
 
 function preprocess_footer() {
     $vars = get_vars();
     $vars['#template'] = 'templates/footer.tpl.php';
+
+    return $vars;
+}
+
+function preprocess_settings() {
+    global $user;
+    $vars = get_vars();
+
+    $file = new File('templates/sidebar/sidebar-settings-user-form.tpl.php');
+    $vars['form_edit_user'] = $file->template(array('user' => $user));
+
+    $file = new File('templates/sidebar/sidebar-settings-group-form.tpl.php');
+    $vars['form_edit_group'] = $file->template();
+
+    $file = new File('templates/sidebar/sidebar-settings-invitation-form.tpl.php');
+    $vars['form_invitation'] = $file->template();
 
     return $vars;
 }

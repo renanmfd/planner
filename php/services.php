@@ -129,6 +129,7 @@ function database_get_entries($type, $time_start, $time_end, $limit = 20, $offse
         ->limit($limit, $offset)
         ->order_by('date', 'desc')
         ->fetch();
+
     return $results;
 }
 

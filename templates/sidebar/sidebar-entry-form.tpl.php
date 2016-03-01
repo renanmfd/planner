@@ -1,6 +1,7 @@
 <form>
-    <?php /* CHECKBOXES - ALL */ ?>
     <div class="container">
+
+        <?php /* CHECKBOXES - ALL */ ?>
         <div class="row form-group input-checkbox" style="margin-bottom: 1rem;">
             <div class="col-xs-12 checkbox checkbox-use-preset">
                 <label>

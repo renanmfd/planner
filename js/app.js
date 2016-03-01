@@ -34,6 +34,28 @@
                     });
                 }
             },
+            { // MENU - Settings.
+                selector: '#menuSettings',
+                handler: function (event) {
+                    var $body = $(this).parent().find('.menu-body'),
+                        $form = $body.find('#sidebarSettings').detach();
+                    event.preventDefault();
+                    Modal.setTitle('Settings').setBody($form).open(function () {
+                        $form.detach().appendTo($body);
+                    });
+                }
+            },
+            { // SETTINGS - Settings.
+                selector: '#sidebarSettings a',
+                handler: function (event) {
+                    var $body = $(this).parent().find('.menu-body'),
+                        $form = $body.find('#sidebarSettings').detach();
+                    event.preventDefault();
+                    Modal.setTitle('Settings').setBody($form).open(function () {
+                        $form.detach().appendTo($body);
+                    });
+                }
+            },
             { // TAB - Control tabs on main container.
                 selector: '#tabsHead li a',
                 handler: function (event) {
