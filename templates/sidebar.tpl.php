@@ -29,12 +29,9 @@
                 <span class="title">Settings</span>
                 <span class="icon glyphicon glyphicon-cog" title="Settings"></span>
             </a>
-<<<<<<< 6ae50e144eae8fbfe89c9839383931f414da95df
-=======
             <div class="menu-body" style="display: none;">
                 <?php echo $settings_form; ?>
             </div>
->>>>>>> Settings menu
         </li>
         <li>
             <a href="#" class="menu-title" id="menuLogout">

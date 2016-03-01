@@ -62,7 +62,7 @@ class File {
      *
      * @return {boolean} Whether the file was included or not.
      */
-    public function template($vars) {
+    public function template($vars = array()) {
         if ($this->exists()) {
             ob_start();
             extract($vars);
@@ -85,7 +85,7 @@ class File {
         }
         return "";
     }
-    
+
     /**
      * Get the content of the JSON file.
      *
